@@ -6,7 +6,7 @@ const router=createRouter({
     history:createWebHashHistory(),
     routes:[{
         path:'/',
-        redirect:'/login'
+        redirect:'/home'
     },
 {
     path:'/home',

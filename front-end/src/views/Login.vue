@@ -4,9 +4,9 @@
     <div class="bgp"></div>
     <div class="login_container">
       <h1>MemberOnly</h1>
-      <el-form class="login_form">
-  <el-form-item >
-      <el-input placeholder="username">
+      <el-form class="login_form" :model="userInfo" :rules="rules" @keyup.enter="onLogin" ref="ref_form">
+  <el-form-item prop="userName">
+      <el-input placeholder="username" v-model.trim="userInfo.userName">
         <template #prepend>
           <el-icon>
             <avatar />
@@ -14,15 +14,19 @@
         </template>
       </el-input>
     </el-form-item>
- 
- <el-input placeholder="passowrd" show-password>
+
+
+    
+ <el-form-item prop="password">
+ <el-input placeholder="passowrd" show-password v-model.trim="userInfo.password">
   <template #prepend>
     <el-icon>
       <key />
     </el-icon>
     </template>
  </el-input>
- <el-button type="primary"  plain class="login_submit">Login</el-button>
+ </el-form-item>
+ <el-button type="primary"  class="login_submit" @click="onLogin">Login</el-button>
  <div class="login_register">
   Register
  </div>
@@ -32,7 +36,59 @@
     </div>
 
 </template>
-<script setup></script>
+<script setup>
+import router from '../router/index';
+import { reactive,ref } from 'vue';
+// 初始的ref
+const ref_form = ref(null)
+// 表单的数据声明
+const userInfo = reactive({
+  userName: '',
+  password: ''
+})
+// 表单数据校验规则
+const rules = {
+  userName: [{ required: 'true', trigger: 'blur', message: 'Please input user name' }],
+  password: [{ required: 'true', trigger: 'blur', message: 'Please input password' }],
+}
+// 登录的方法
+const onLogin = () => {
+  ref_form.value.validate((val) => {
+    if (val) {
+      getLoginData()
+    }
+  })
+}
+// 获取登录数据
+const getLoginData = () => {
+  
+  localStorage.setItem('token',1)
+  // 如果登录成功，跳转到首页
+  ElMessage({
+  message: 'Congratulations! You have logged in successfully!',
+  type: 'success'
+ })
+ 
+
+  
+
+  // 成功后跳转到首页
+  router.push('/home')
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
 
 <style lang="less" scoped>
 @-webkit-keyframes fadenum {
