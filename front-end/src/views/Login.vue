@@ -131,6 +131,7 @@ const getLoginData = () => {
     border-radius: 10px;
     padding: 20px;
 
+
     h1 {
       font-size: 24px;
       transition: all 1s;
@@ -148,7 +149,7 @@ const getLoginData = () => {
         height: 50px;
         border-radius: 20px;
         margin-bottom: 10px;
-        margin-top: 20px;
+        margin-top: 5px;
       }
 
       .login_register {
