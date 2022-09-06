@@ -14,6 +14,7 @@
         </template>
       </el-input>
     </el-form-item>
+    
 
 
     
@@ -104,7 +105,8 @@ const getLoginData = () => {
 .login {
   height: 100%;
   height: 100%;
-    background-image: url("../assets/bj.jpeg");
+  //图片
+    // background-image: url("../assets/bj.jpeg");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: 50% 50%;

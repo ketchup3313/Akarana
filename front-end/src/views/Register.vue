@@ -1,6 +1,9 @@
 <template>
     <div>
-        Register
+    <div class='register'>
+        
+    </div>
+
     </div>
 </template>
 <script setup>
