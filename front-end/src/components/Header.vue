@@ -4,6 +4,7 @@
             <el-icon size="30px" @click="handleCollapse" :style="{transform:isCollapse?'':'rotate(180deg)'}"><Expand /></el-icon>
             <span>
                 Home
+                lore
             </span>
         </div>
         <div class="user"
@@ -28,13 +29,13 @@ import {ref} from 'vue'
 import { defineProps }from 'vue'
 // 获取父组件的函数
 const{isCollapse,handleCollapse}=defineProps(['isCollapse','handleCollapse'])
-// 鼠标移动个人信息展示
+//// 鼠标移动个人信息展示
 let show=ref(false)
 const isShowUserInfo=(type)=>{
     type==="show"? show.value=true:show.value=false
 }
 
-
+                                                                                                                                                                                                  
 </script>
 
 <style lang="less" scoped>

@@ -15,6 +15,7 @@ const router=createRouter({
         isAuth:true
     }
 },{
+    
     path:'/register',
     component:()=>import('../views/Register.vue')
 },{

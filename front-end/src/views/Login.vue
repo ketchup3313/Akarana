@@ -1,95 +1,77 @@
 <template>
-
   <div class="login">
     <div class="bgp"></div>
     <div class="login_container">
       <h1>MemberOnly</h1>
       <el-form class="login_form" :model="userInfo" :rules="rules" @keyup.enter="onLogin" ref="ref_form">
-  <el-form-item prop="userName">
-      <el-input placeholder="username" v-model.trim="userInfo.userName">
-        <template #prepend>
-          <el-icon>
-            <avatar />
-          </el-icon>
-        </template>
-      </el-input>
-    </el-form-item>
-    
+        <el-form-item prop="userName">
+          <el-input placeholder="username" v-model.trim="userInfo.userName">
+            <template #prepend>
+              <el-icon>
+                <avatar />
+              </el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
 
-
-    
- <el-form-item prop="password">
- <el-input placeholder="passowrd" show-password v-model.trim="userInfo.password">
-  <template #prepend>
-    <el-icon>
-      <key />
-    </el-icon>
-    </template>
- </el-input>
- </el-form-item>
- <el-button type="primary"  class="login_submit" @click="onLogin">Login</el-button>
- <div class="login_register">
-  Register
- </div>
-      
+        <el-form-item prop="password">
+          <el-input placeholder="passowrd" show-password v-model.trim="userInfo.password">
+            <template #prepend>
+              <el-icon>
+                <key />
+              </el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
+        <el-button type="primary" class="login_submit" @click="onLogin">Login</el-button>
+        <div class="login_register">Register</div>
       </el-form>
     </div>
-    </div>
-
+  </div>
 </template>
+
+
 <script setup>
-import router from '../router/index';
-import { reactive,ref } from 'vue';
+import router from "../router/index";
+import { reactive, ref } from "vue";
 // 初始的ref
-const ref_form = ref(null)
+const ref_form = ref(null);
 // 表单的数据声明
 const userInfo = reactive({
-  userName: '',
-  password: ''
-})
+  userName: "",
+  password: "",
+});
+
 // 表单数据校验规则
 const rules = {
-  userName: [{ required: 'true', trigger: 'blur', message: 'Please input user name' }],
-  password: [{ required: 'true', trigger: 'blur', message: 'Please input password' }],
-}
+  userName: [
+    { required: "true", trigger: "blur", message: "Please input user name" },
+  ],
+  password: [
+    { required: "true", trigger: "blur", message: "Please input password" },
+  ],
+};
 // 登录的方法
 const onLogin = () => {
   ref_form.value.validate((val) => {
     if (val) {
-      getLoginData()
+      getLoginData();
     }
-  })
-}
+  });
+};
 // 获取登录数据
 const getLoginData = () => {
-  
-  localStorage.setItem('token',1)
+  localStorage.setItem("token", 1);
   // 如果登录成功，跳转到首页
   ElMessage({
-  message: 'Congratulations! You have logged in successfully!',
-  type: 'success'
- })
- 
-
-  
+    message: "Congratulations! You have logged in successfully!",
+    type: "success",
+  });
 
   // 成功后跳转到首页
-  router.push('/home')
-}
-
-
+  router.push("/home");
+};
 </script>
-
-
-
-
-
-
-
-
-
-
-
 
 <style lang="less" scoped>
 @-webkit-keyframes fadenum {
@@ -106,13 +88,11 @@ const getLoginData = () => {
   height: 100%;
   height: 100%;
   //图片
-    // background-image: url("../assets/bj.jpeg");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: 50% 50%;
-    background-attachment: fixed;
-
-  
+  // background-image: url("../assets/bj.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 50% 50%;
+  background-attachment: fixed;
 
   .el-icon {
     height: 30px !important;
@@ -132,7 +112,6 @@ const getLoginData = () => {
     background-color: #fff;
     border-radius: 10px;
     padding: 20px;
-
 
     h1 {
       font-size: 24px;
@@ -164,5 +143,6 @@ const getLoginData = () => {
         padding: 0 10px;
       }
     }
-  }}
+  }
+}
 </style>
