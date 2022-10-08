@@ -31,6 +31,7 @@ router.beforeEach((to,from,next)=>{
     if(to.meta.isAuth){
         if(localStorage.getItem('token')){
             next()
+            // check on mac
         }else{
             ElMessage.error('Please login first')
         }
