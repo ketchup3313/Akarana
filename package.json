@@ -1,0 +1,53 @@
+{
+  "name": "zrsquared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "node index.js",
+    "app:dev": "nodemon index.js",
+    "build": "cd frontend && npm run build",
+    "install-client": "cd frontend && npm install --force",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "develop": "concurrently --kill-others-on-fail \"npm run app\" \"npm run start --prefix frontend\"",
+    "start": "concurrently --kill-others-on-fail \"npm run app\" \"npm run start --prefix frontend\"",
+    "web-start": "concurrently --kill-others-on-fail \"npm run app\" \"npm run start --prefix frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/R0yJing/CISE_ass1b_Team3.git"
+  },
+  "author": "Roy, Zac & Raniya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/R0yJing/CISE_ass1b_Team3/issues"
+  },
+  "homepage": "https://github.com/R0yJing/CISE_ass1b_Team3#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.1",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.9",
+    "mongoose-sequence": "^5.3.1",
+    "path": "^0.12.7",
+    "postman": "^0.2.0",
+    "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.3.2",
+    "react-test-renderer": "^17.0.2"
+  }
+}
