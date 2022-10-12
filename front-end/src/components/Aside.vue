@@ -87,12 +87,16 @@ const { isCollapse } = defineProps(['isCollapse'])
   border: none;
 }
 
+span {
+  margin-right: 20px;
+}
+
 .xd-icon {
   display: flex;
   align-items: center;
   font-weight: 600;
   height: 60px;
-  background-color: #fff;
+  background-color: white;
   white-space: nowrap;
   padding-left: 15px;
 

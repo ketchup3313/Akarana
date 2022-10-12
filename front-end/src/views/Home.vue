@@ -1,25 +1,31 @@
 <template>
-    <div class="home">
+  <div class="home">
+    <el-container>
+      <el-aside width="250px">
+        <Aside :isCollapse="isCollapse" />
+      </el-aside>
+
       <el-container>
-        <el-aside width="200px"><Aside :isCollapse="isCollapse"/></el-aside>
-        
-        <el-container>
-          <el-header><Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" /></el-header>
-          <el-main><Main /></el-main>
-        </el-container>
+        <el-header>
+          <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
+        </el-header>
+        <el-main>
+          <Main />
+        </el-main>
       </el-container>
-    </div>
-  </template>
+    </el-container>
+  </div>
+</template>
 <script setup>
 
 
 import Header from '../components/Header.vue'
 import Aside from '../components/Aside.vue'
 import Main from '../components/Main.vue'
-import {ref} from 'vue'
-const isCollapse=ref(false)
-const handleCollapse=() => {
-  isCollapse.value =! isCollapse.value
+import { ref } from 'vue'
+const isCollapse = ref(false)
+const handleCollapse = () => {
+  isCollapse.value = !isCollapse.value
 }
 
 </script>
@@ -41,7 +47,8 @@ const handleCollapse=() => {
 }
 
 .el-header {
-  // padding: 0 20px 0 0;
+  //Header的样式
+  padding: 0 0 0 0;
   background-color: #fff;
 }
 </style>
