@@ -1,13 +1,9 @@
 <template>
-  <el-menu 
-  :collapse="isCollapse"
-  
-  class="el-menu-vertical-demo"
-  active-text-color="#ffd04b"
-  
-  background-color="#545c64"
-  text-color="#fff"
-  >
+
+
+
+  <el-menu :collapse="isCollapse" class="el-menu-vertical-demo" active-text-color="#ffd04b" background-color="#545c64"
+    text-color="#fff">
     <div class="xd-icon">
       <img src="../../public/ICON.png">
       <span>
@@ -17,41 +13,67 @@
     </div>
     <el-sub-menu index="1">
       <template #title>
-       <el-icon><Comment /></el-icon>
-        <span>Communication</span>
+        <el-icon>
+          <Comment />
+        </el-icon>
+        <span>Acitivity</span>
       </template>
 
-      <el-menu-item index="1-1">item one</el-menu-item>
-      <el-menu-item index="1-2">item two</el-menu-item>
+      <el-menu-item index="1-1">Rally</el-menu-item>
+      <el-menu-item index="1-2">Newsletter</el-menu-item>
     </el-sub-menu>
 
     <el-sub-menu index="2">
       <template #title>
         <!-- icon -->
-        <el-icon><UserFilled /></el-icon>
-        <span>Profile</span>
+        <el-icon>
+          <UserFilled />
+        </el-icon>
+        <span>Member </span>
       </template>
-    
-        
-        <el-menu-item index="2-1">item one</el-menu-item>
-        <el-menu-item index="2-2">item two</el-menu-item>
-  
-  
-      </el-sub-menu>
+
+
+      <el-menu-item index="2-1">Member</el-menu-item>
+      <el-menu-item index="2-2">Photo</el-menu-item>
+    </el-sub-menu>
+
+    <el-sub-menu index="3">
+      <template #title>
+        <el-icon>
+          <Comment />
+        </el-icon>
+        <span>
+          About me
+        </span>
+      </template>
+      <el-menu-item index="3-1">Setting</el-menu-item>
+
+    </el-sub-menu>
+
+    <el-menu-item index="4">
+      <el-icon>
+        <QuestionFilled />
+      </el-icon>How to use
+    </el-menu-item>
+
+
+
+
   </el-menu>
 </template>
 
 <script setup>
-  import { DefineProps } from 'vue';
+import { DefineProps } from 'vue';
 
-const {isCollapse}=defineProps(['isCollapse'])
+const { isCollapse } = defineProps(['isCollapse'])
 
 
 
 </script>
 
+
 <style lang="less" scoped>
-  .el-radio-button__inner {
+.el-radio-button__inner {
   padding: 0;
 }
 
