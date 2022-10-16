@@ -17,6 +17,7 @@
           <Comment />
         </el-icon>
         <span>Acitivity</span>
+        
       </template>
 
       <el-menu-item index="1-1">Rally</el-menu-item>
@@ -76,6 +77,7 @@ const { isCollapse } = defineProps(['isCollapse'])
 .el-radio-button__inner {
   padding: 0;
 }
+
 
 .el-menu--collapse {
   border: none;
