@@ -12,7 +12,7 @@
    <el-form
     ref="ruleFormRef"
     :model="ruleForm"
-    
+    rules="rules"
     label-width="120px"
     class="demo-ruleForm"
     :size="formSize"
@@ -63,7 +63,7 @@
             <el-checkbox label="I agree all statements in Terms of service" name="type" required="true" /> 
         </div>
         <el-form-item>
-          <el-button type="primary" @click="submitForm(formRef)">Submit</el-button>
+    
       
     </el-form-item>
 
@@ -91,13 +91,13 @@
   
 </template>
 
-<script lang="ts" setup>
+<script setup>
 
 import { reactive, ref } from 'vue'
 import  { FormInstance, FormRules } from 'element-plus'
 import router from "../router/index";
 const formSize = ref('default')
-const formRef = ref<FormInstance>()
+
 
 const ruleForm = reactive({
   FirstName: '',
@@ -110,17 +110,7 @@ const ruleForm = reactive({
   Email: '',
 
 })
-const submitForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.validate((valid) => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
-}
+
 
 
 </script>
