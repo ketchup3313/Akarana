@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.6",
+    "@supabase/supabase-js": "^2.8.0",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "element-plus": "^2.2.12",
@@ -38,7 +39,8 @@
       "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "parser": "@babel/eslint-parser",
+      "requireConfigFile": false
     },
     "rules": {}
   },
