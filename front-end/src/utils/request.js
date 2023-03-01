@@ -1,16 +1,19 @@
 import axios from "axios";
+const ENV = process.env.NODE_ENV;
 // 创建axios实例
-const host=ENV==='dev'?'http://localhost:3000':'http://www.baidu.com'
+const host = ENV === "dev" ? "http://127.0.0.1" : "https://api.ketchup3313.com/";
 const service = axios.create({
-    baseURL: process.env.BASE_API, // api的base_url
-    timeout: 5000 // 请求超时时间
+  baseURL: host, // api的base_url
+  timeout: 5000, // 请求超时时间
 });
 
-// request拦截器
-service.interceptors.request.use(config => {
-    if(config.url.indexOf('register')<0&&config.url.indexOf('login')<0){
-        config.headers['Authorization']=localStorage.getItem('token')
-        
-    
-    }
-})
+// 请求拦截
+service.interceptors.request.use((config) => {
+  console.log(config);
+  if (config.url.indexOf("register") < 0 && config.url.indexOf("login") < 0) {
+    config.headers.Authorization = localStorage.getItem("token");
+  }
+  return config;
+});
+
+export default service;
