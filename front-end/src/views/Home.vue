@@ -1,8 +1,6 @@
 <template>
   <div class="home">
     <el-container>
-
-
       <el-container>
         <el-header>
           <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />

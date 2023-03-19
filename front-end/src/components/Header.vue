@@ -24,8 +24,8 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>Rally</el-dropdown-item>
-          <el-dropdown-item>Newsletter</el-dropdown-item>
+          <el-dropdown-item>Rally活动中心</el-dropdown-item>
+          <el-dropdown-item @click=NewsLetter>Newsletter</el-dropdown-item>
 
 
         </el-dropdown-menu>
@@ -34,7 +34,7 @@
 
     <el-dropdown size="large">
       <span class="el-dropdown-link">
-        Member
+          Members
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
@@ -42,7 +42,7 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="memberspage">Member</el-dropdown-item>
-          <el-dropdown-item>Photo</el-dropdown-item>
+          <el-dropdown-item @click="Photo">Photo</el-dropdown-item>
 
 
         </el-dropdown-menu>
@@ -127,7 +127,12 @@ const isShowUserInfo = (type) => {
 const memberspage = () => {
   router.push("/members");
 }
-
+const NewsLetter = () =>{
+  router.push("/NewsLetter")
+}
+const Photo = () =>{
+  router.push("/Photo")
+}
 
 </script>
 

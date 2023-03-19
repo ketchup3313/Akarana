@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import Login from "../views/Login";
+
 
 //router config
 const router = createRouter({
@@ -7,7 +9,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      redirect: "/home",
+      redirect: "/Login",
     },
     {
       path: "/home",
@@ -24,6 +26,13 @@ const router = createRouter({
       path: "/login",
       component: () => import("../views/Login.vue"),
     },
+    {
+      path: "/NewsLetter",
+      component: () => import("../views/NewsLetter.vue"),
+    },{
+      path: "/Photo",
+      component: () => import("../views/Photo.vue"),
+    }
   ],
 });
 
