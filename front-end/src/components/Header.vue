@@ -101,7 +101,7 @@
         <div>
           Ketchup
         </div>
-        <div>
+        <div @click='logout'>
           Log out
         </div>
       </div>
@@ -133,6 +133,11 @@ const NewsLetter = () =>{
 const Photo = () =>{
   router.push("/Photo")
 }
+const logout = () => {
+  localStorage.removeItem("token");
+  console.log("logout clicked");
+  router.push({ name: "login" });
+};
 
 </script>
 

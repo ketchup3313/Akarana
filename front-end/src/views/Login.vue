@@ -33,6 +33,7 @@
 
 <script setup>
 import router from "../router/index";
+import axios from 'axios'
 import { reactive, ref } from "vue";
 // 初始的ref
 const ref_form = ref(null);
@@ -71,6 +72,27 @@ const getLoginData = () => {
   // 成功后跳转到首页
   router.push("/home");
 };
+// 不要删下面的代码，这是axios的写法
+// const getLoginData = async () => {
+//   try {
+//     const response = await axios.post('/api/login', {
+//       userName: userInfo.userName,
+//       password: userInfo.password
+//     });
+//     const { token, user } = response.data;
+//     localStorage.setItem('token', token);
+//     // 如果登录成功，跳转到首页
+//     ElMessage({
+//       message: 'Congratulations! You have logged in successfully!',
+//       type: 'success',
+//     });
+//     // 成功后跳转到首页
+//     router.push('/home');
+//   } catch (error) {
+//     ElMessage.error('Login failed. Please check your username and password.');
+//   }
+// };
+
 </script>
 
 <style lang="less" scoped>
