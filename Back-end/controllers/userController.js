@@ -1,8 +1,11 @@
 const db = require('../config/database');
+const bcrypt=require('bcryptjs');
 
 
 
 exports.loginController = (req, res) => {
+    const sql='select * from user where name=?';
+    res.send('login Success')
     let { userName, password } = req.body;
   
     const userSelectSql = 'select * from user where name=?';
@@ -14,13 +17,13 @@ exports.loginController = (req, res) => {
   
       //账号存在与否判断
       if (results.length === 0) {
-        return res.send({ code: 1, message: '账号不存在，请先注册！' });
+        return res.send({ code: 1, message: 'account not exist' });
       }
   
       //判断密码是否正确
       const compareState = bcrypt.compareSync(password, results[0].pwd);
       if (!compareState) {
-        return res.send({ code: 1, message: '密码错误！' });
+        return res.send({ code: 1, message: 'Wrong message' });
       }
   
       //声明需要拼接token的用户信息
