@@ -1,7 +1,7 @@
 const db = require('../config/database');
 const bcrypt=require('bcryptjs');
-
-
+const jwt=require('jsonwebtoken');
+const  {jwtSecretKey} = require('../config/jwtSecretKey');
 
 exports.loginController = (req, res) => {
     const sql='select * from user where name=?';
@@ -30,9 +30,11 @@ exports.loginController = (req, res) => {
       const user = { ...results[0], pwd: '' };
   
       //生成token
-      const token = jwt.sign(user, jwtSecretKey, { expiresIn: '5s' });
-  
-      //响应数据
+      const token = jwt.sign(user, jwtSecretKey, { expiresIn: '24h' });
+    // Jwt
+      
+
+      //响应数据J
       res.send({ code: 0, message: '登录成功', token: 'bearer ' + token });
     });
   };
