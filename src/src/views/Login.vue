@@ -40,8 +40,8 @@ import { reactive, ref } from "vue";
 const ref_form = ref(null);
 // 表单的数据声明
 const userInfo = reactive({
-  userName: "admin",
-  password: "123",
+  userName: "",
+  password: "",
 });
 
 // 表单数据校验规则

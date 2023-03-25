@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="home">
     <el-container>
       <el-container>
@@ -75,4 +75,4 @@ export default {
 .photo-wall__item:hover img {
   transform: scale(1.2);
 }
-</style>
+</style> -->

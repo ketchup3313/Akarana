@@ -4,16 +4,14 @@
       <el-icon size="30px" @click="handleCollapse" :style="{transform:isCollapse?'':'rotate(180deg)'}">
         <Expand />
       </el-icon>
-      <span>
+      <!-- 点击跳转到/home -->
+  
+      <el-link :underline="false" type="primary" href="/home" >
+      <span style="text-decoration: none">
         Home
       </span>
+      </el-link>
     </div>
-    <!--  绿色1 -->
-
-
-
-
-
 
     <el-dropdown size="large">
       <span class="el-dropdown-link">
@@ -51,19 +49,19 @@
 
 
     <el-dropdown size="large">
-      <span class="el-dropdown-link">
+      <span class="el-dropdown-link" @click="profile">
         About me
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
       </span>
       <template #dropdown>
-        <el-dropdown-menu>
+        <!-- <el-dropdown-menu>
 
           <el-dropdown-item>Setting</el-dropdown-item>
+ 
 
-
-        </el-dropdown-menu>
+        </el-dropdown-menu> -->
       </template>
     </el-dropdown>
 
@@ -99,7 +97,7 @@
       <img src="../../public/ICON.png">
       <div class="userInfo" v-show="show">
         <div>
-          Ketchup
+          {{ userInfo.name }}
         </div>
         <div @click='logout'>
           Log out
@@ -115,6 +113,8 @@ import { ref } from 'vue'
 import router from "../router/index";
 import { defineProps } from 'vue'
 import { DefineProps } from 'vue'
+import { reactive, onMounted } from 'vue'
+import { getUserInfo } from '../api/api'
 import { ArrowDown } from '@element-plus/icons-vue'
 // 获取父组件的函数
 const { isCollapse, handleCollapse } = defineProps(['isCollapse', 'handleCollapse'])
@@ -133,10 +133,29 @@ const NewsLetter = () =>{
 const Photo = () =>{
   router.push("/Photo")
 }
+const profile=()=>{
+  router.push("/profile")
+}
 const logout = () => {
   localStorage.removeItem("@#@TOKEN");
   router.push({ name: "login" });
 };
+// 获取用户信息
+
+const userInfo = reactive({
+  name: '',
+  headImg: ''
+})
+const getUserInfoData = async () => {
+  const res = await getUserInfo()
+  if (res?.name && res?.headImg) {
+    userInfo.name = res.name
+    userInfo.headImg = res.headImg
+  }
+}
+onMounted(() => {
+  getUserInfoData()
+})
 
 </script>
 
@@ -179,7 +198,7 @@ const logout = () => {
 
 .header {
   position: relative;
-  height: 45px;
+  height: 100%;
   font-weight: 700;
   align-items: center;
   display: flex;
@@ -205,7 +224,10 @@ const logout = () => {
 
 
   }
-
+  
+a {
+  text-decoration: none;
+}
   .user {
     display: flex;
     justify-content: center;

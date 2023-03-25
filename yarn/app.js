@@ -38,5 +38,5 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(8888, () => {
-  console.log('server ：8888')
+  console.log('server :8888')
 })

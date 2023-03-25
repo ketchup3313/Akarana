@@ -5,11 +5,12 @@
         <el-header>
           <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
         </el-header>
-        <el-main>
-          <a class="a-style" @click="linkDownload('https://www.baidu.com')">百度</a>
-          <button @click="handerOne">3212</button>]
-          <Main />
-        </el-main>
+     
+          <!-- <iframe src="https://calendar.google.com/calendar/embed?src=d769099043f60609b0d5364fc06073bc9329a9ab534149bcde14b89a0ae51646%40group.calendar.google.com&ctz=Pacific%2FAuckland" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+          <!-- <button @click="handerOne">3212</button>] -->
+        
+      
+        <Main />
       </el-container>
     </el-container>
   </div>
