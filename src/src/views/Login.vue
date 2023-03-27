@@ -32,6 +32,7 @@
 
 
 <script setup>
+import store from '../store/index'
 import http from '@/utils/request'
 import router from "../router/index";
 import axios from 'axios'
@@ -64,7 +65,7 @@ const onLogin = () => {
 // 获取登录数据
 const getLoginData = async () => {
 
-  const { data: { status, msg, token } } = await http.post('/api/login', {
+  const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login', {
     username: userInfo.userName,
     password: userInfo.password
   });
@@ -82,6 +83,11 @@ const getLoginData = async () => {
       message: "Congratulations! You have logged in successfully!",
       type: "success",
     });
+    // localStorage.setItem('userId',myuserInfo.id);  
+    store.dispatch({
+      type:'getUserInfo',
+      payload:myuserInfo.id
+    })
     localStorage.setItem('@#@TOKEN', token)
     router.push("/home");
   }

@@ -1,140 +1,111 @@
 <template>
- <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
+  <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
   <div class="user-profile">
-    <h2 class="profile-title">个人资料</h2>
-    <div v-if="!showEditForm" class="profile-content">
-      <p>First Name: {{ userInfo.firstName }}</p>
-      <p>Last Name: {{ userInfo.lastName }}</p>
-      <p>Phone Number: {{ userInfo.phoneNumber }}</p>
-      <p>Username: {{ userInfo.username }}</p>
-      <p>Password: {{ userInfo.password }}</p>
-      <p>Address: {{ userInfo.address }}</p>
-      <p>Email Address: {{ userInfo.emailAddress }}</p>
-      <p>Birthday: {{ userInfo.birthday }}</p>
-      <button @click="showEditForm = true" class="edit-btn">Edit</button>
-    </div>
+    <h2 class="profile-title">Personal profile</h2>
+    <div v-if="userInfo" class="profile-content">
 
-    <div v-else class="edit-form">
-      <h3>Edit Profile</h3>
-      <form @submit.prevent="submitForm">
-        <label for="firstName">First Name:</label>
-        <input id="firstName" v-model="editedUserInfo.firstName" type="text" />
-        <!-- Add other input fields for other user info properties -->
-        <label for="lastName">Last Name:</label>
-        <input id="lastName" v-model="editedUserInfo.lastName" type="text" />
-        <label for="phoneNumber">Phone Number:</label>
-        <input id="phoneNumber" v-model="editedUserInfo.phoneNumber" type="text" />
-        <label for="username">Username:</label>
-        <input id="username" v-model="editedUserInfo.username" type="text" />
-        <label for="password">Password:</label>
-        <input id="password" v-model="editedUserInfo.password" type="text" />
-        <label for="address">Address:</label>
-        <input id="address" v-model="editedUserInfo.address" type="text" />
-        <label for="emailAddress">Email Address:</label>
-        <input id="emailAddress" v-model="editedUserInfo.emailAddress" type="text" />
-        <label for="birthday">Birthday:</label>
-        <input id="birthday" v-model="editedUserInfo.birthday" type="text" />
+     
 
-        
-        <button @click="submitForm" class="save-btn">Save</button>
-      </form>
+      <p>First Name: <span v-if="btnState"> {{ userInfo.firstName }}</span>
+        <input v-else id="firstName" v-model="editedUserInfo.firstName" type="text" />
+      </p>
+      <p>Last Name:<span v-if="btnState">{{ userInfo.lastName }}</span>
+        <input v-else id="lastName" v-model="editedUserInfo.lastName" type="text" />
+      </p>
+      <p>Phone Number:<span v-if="btnState">{{ userInfo.phoneNumber }}</span>
+        <input v-else id="phoneNumber" v-model="editedUserInfo.phoneNumber" type="text" />
+      </p>
+      <p>Username: <span v-if="btnState">{{ userInfo.username }}</span>
+        <input v-else id="username" v-model="editedUserInfo.username" type="text" />
+      </p>
+      <p>Password: <span v-if="btnState">{{ userInfo.password }}</span>
+        <input v-else id="password" v-model="editedUserInfo.password" type="text" />
+      </p>
+      <p>Address: <span v-if="btnState">{{ userInfo.address }}</span>
+        <input v-else id="address" v-model="editedUserInfo.address" type="text" />
+      </p>
+      <p>Email Address:<span v-if="btnState">{{ userInfo.emailAddress }}</span>
+        <input v-else id="emailAddress" v-model="editedUserInfo.emailAddress" type="text" />
+      </p>
+      <p>Birthday: <span v-if="btnState">{{ userInfo.birthday }}</span>
+        <input v-else id="birthday" v-model="editedUserInfo.birthday" type="text" />
+      </p>
+      <button v-if="btnState" @click="btnState = false" class="editbut">Edit</button>
+      <button v-else @click="save">Save</button>
     </div>
   </div>
 </template>
 
 <script>
 // 引入api
-import api from '../api/api';
+// import api from '';
+import { mapState } from 'vuex'
 
 export default {
   data() {
     return {
-      userInfo: null,
+      btnState:true,
       showEditForm: false,
-      editedUserInfo: {},
+      editedUserInfo: {
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        username: '',
+        password: '',
+        address: '',
+        emailAddress: '',
+        birthday: ''
+      }
     };
   },
-  async created() {
-    // 这里的 id 应该从登录后的响应中获取
-    const id = 'your_id_here';
-    try {
-      const response = await api.getUserInfo(id);
-      this.userInfo = response.data;
-      this.editedUserInfo = { ...this.userInfo }; // 初始化编辑表单的数据
-    } catch (error) {
-      console.error('获取用户信息失败', error);
+  computed: {
+    ...mapState({
+      userInfo: state => state.userInfo,
+    })
+  },
+
+  methods:{
+    async save(){
+       await this.$store.dispatch({
+        type:'changeUserInfo',
+        payload:this.editedUserInfo
+      });
+      this.btnState = true;
+      this.setEditedUserInfo();
+    },
+    setEditedUserInfo(){
+      this.editedUserInfo =  {
+        ...this.$store.state.userInfo
+      }
     }
   },
-  methods: {
-    async submitForm() {
-      try {
-        await api.updateUserInfo(this.editedUserInfo);
-        this.userInfo = { ...this.editedUserInfo }; // 更新当前显示的用户信息
-        this.showEditForm = false; // 隐藏编辑表单
-        // 刷新页面，重新获取用户信息
-        window.location.reload();
-        
-      } catch (error) {
-        console.error('更新用户信息失败', error);
-      }
-    },
+  created() {
+    this.setEditedUserInfo();
+    // this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+    // 这里的 id 应该从登录后的响应中获取
+    // const id = 'your_id_here';
+    // try {
+    //   const response = await api.getUserInfo(id);
+    //   this.userInfo = response.data;
+    //   this.editedUserInfo = { ...this.userInfo }; // 初始化编辑表单的数据
+    // } catch (error) {
+    //   console.error('获取用户信息失败', error);
+    // }
   },
+
 };
 </script>
 
 <style scoped>
-.edit-btn {
-  background-color: #409eff;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px 2px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.edit-form {
-  background-color: #f5f5f5;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 5px;
-}
-
-.edit-form label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.edit-form input {
-  display: block;
-  width:100%;
-padding: 5px;
-margin-bottom: 15px;
-}
-
-.edit-form button {
-background-color: #4CAF50;
-border: none;
-color: white;
-padding: 10px 20px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-margin: 10px 2px;
-cursor: pointer;
-border-radius: 5px;
-}
 .user-profile {
   width: 80%;
   margin: 0 auto;
   padding: 20px;
   background-color: #f5f5f5;
   border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 100%;
 }
 
 .profile-title {
@@ -142,10 +113,58 @@ border-radius: 5px;
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: #333;
+  padding: 20px;
+}
+
+.profile-content {
+  padding: 20px;
 }
 
 .profile-content p {
   font-size: 18px;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-content span {
+  color: #333;
+}
+
+.profile-content input {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin: 20px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.editbut {
+  background-color: #1E90FF;
+}
+
+.editbut:hover {
+  background-color: #187bcd;
 }
 </style>

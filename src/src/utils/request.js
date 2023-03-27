@@ -27,6 +27,7 @@ service.interceptors.response.use((response) => {
       type: "error",
     });
     localStorage.removeItem("@#@TOKEN");
+    localStorage.removeItem("userInfo");
     router.push('/login');
   }
   return response

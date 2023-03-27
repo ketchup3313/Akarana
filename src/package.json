@@ -19,6 +19,7 @@
     "vue": "^3.2.13",
     "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.1.3",
+    "vue3-google-map": "^0.15.0",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

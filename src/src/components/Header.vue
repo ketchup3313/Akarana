@@ -1,15 +1,15 @@
 <template>
   <div class="header">
     <div class="homeIcon">
-      <el-icon size="30px" @click="handleCollapse" :style="{transform:isCollapse?'':'rotate(180deg)'}">
+      <!-- <el-icon size="30px" @click="handleCollapse" :style="{ transform: isCollapse ? '' : 'rotate(180deg)' }">
         <Expand />
-      </el-icon>
+      </el-icon> -->
       <!-- 点击跳转到/home -->
-  
-      <el-link :underline="false" type="primary" href="/home" >
-      <span style="text-decoration: none">
-        Home
-      </span>
+
+      <el-link :underline="false" type="primary" href="/home">
+        <span style="text-decoration: none">
+          Home
+        </span>
       </el-link>
     </div>
 
@@ -32,7 +32,7 @@
 
     <el-dropdown size="large">
       <span class="el-dropdown-link">
-          Members
+        Members
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
@@ -49,19 +49,17 @@
 
 
     <el-dropdown size="large">
-      <span class="el-dropdown-link" @click="profile">
+      <span class="el-dropdown-link">
         About me
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
       </span>
       <template #dropdown>
-        <!-- <el-dropdown-menu>
-
-          <el-dropdown-item>Setting</el-dropdown-item>
- 
-
-        </el-dropdown-menu> -->
+        <el-dropdown-menu>
+          <el-dropdown-item @click="profile"> My profile</el-dropdown-item>
+          <el-dropdown-item @click="editform">Manage my account</el-dropdown-item>
+        </el-dropdown-menu>
       </template>
     </el-dropdown>
 
@@ -95,10 +93,10 @@
 
     <div class="user" @mouseenter="isShowUserInfo('show')" @mouseleave="isShowUserInfo('leave')">
       <img src="../../public/ICON.png">
+      <span >
+        {{username}}
+      </span>
       <div class="userInfo" v-show="show">
-        <div>
-          {{ userInfo.name }}
-        </div>
         <div @click='logout'>
           Log out
         </div>
@@ -108,55 +106,78 @@
   </div>
 </template>
 
-<script setup>
+<script >
 import { ref } from 'vue'
 import router from "../router/index";
 import { defineProps } from 'vue'
-import { DefineProps } from 'vue'
 import { reactive, onMounted } from 'vue'
 import { getUserInfo } from '../api/api'
 import { ArrowDown } from '@element-plus/icons-vue'
-// 获取父组件的函数
-const { isCollapse, handleCollapse } = defineProps(['isCollapse', 'handleCollapse'])
-//// 鼠标移动个人信息展示
-let show = ref(false)
-const isShowUserInfo = (type) => {
-  type === "show" ? show.value = true : show.value = false
-}
+import {mapState} from 'vuex';
+export default {
+  setup() {
+    // 获取父组件的函数
+    // const { isCollapse, handleCollapse } = defineProps(['isCollapse', 'handleCollapse'])
+    //// 鼠标移动个人信息展示
+    let show = ref(false)
+    const isShowUserInfo = (type) => {
+      type === "show" ? show.value = true : show.value = false
+    }
 
-const memberspage = () => {
-  router.push("/members");
-}
-const NewsLetter = () =>{
-  router.push("/NewsLetter")
-}
-const Photo = () =>{
-  router.push("/Photo")
-}
-const profile=()=>{
-  router.push("/profile")
-}
-const logout = () => {
-  localStorage.removeItem("@#@TOKEN");
-  router.push({ name: "login" });
-};
-// 获取用户信息
+    const memberspage = () => {
+      router.push("/members");
+    }
+    const NewsLetter = () => {
+      router.push("/NewsLetter")
+    }
+    const Photo = () => {
+      router.push("/Photo")
+    }
+    const profile = () => {
+      router.push("/profile")
+    }
+    const editform = () => {
+      router.push("/editform")
+    }
+    const logout = () => {
+      localStorage.removeItem("@#@TOKEN");
+      router.push({ name: "login" });
+    };
+    // // 获取用户信息
 
-const userInfo = reactive({
-  name: '',
-  headImg: ''
-})
-const getUserInfoData = async () => {
-  const res = await getUserInfo()
-  if (res?.name && res?.headImg) {
-    userInfo.name = res.name
-    userInfo.headImg = res.headImg
+    // const userInfo = reactive({
+    //   name: '',
+    //   headImg: ''
+    // })
+    const getUserInfoData = async () => {
+      const res = await getUserInfo()
+      if (res?.name && res?.headImg) {
+        userInfo.name = res.name
+        userInfo.headImg = res.headImg
+      }
+    }
+    onMounted(() => {
+      // getUserInfoData()
+    })
+
+    return{
+      // isCollapse
+      isShowUserInfo,
+      show,
+      memberspage,
+      Photo,
+      NewsLetter,
+      profile,
+      editform,
+      logout
+    }
+  },
+  computed:{
+    ...mapState({
+      username: state => state.userInfo.username,
+    })
   }
 }
-onMounted(() => {
-  getUserInfoData()
-})
-
 </script>
 
 <style lang="less" scoped>
@@ -181,7 +202,7 @@ onMounted(() => {
   flex-direction: column;
   position: absolute;
   right: 0;
-  bottom: -76px;
+  bottom: -36px;
   background-color: white;
   border: 5px;
   box-shadow: 0 4px 8px 0 rgb(7 17 27 / 10%);
@@ -198,12 +219,11 @@ onMounted(() => {
 
 .header {
   position: relative;
-  height: 100%;
   font-weight: 700;
   align-items: center;
   display: flex;
   justify-content: space-between;
-  background-color: #FAFAFA;
+  background-color:#E67B4C;
 
 
 
@@ -224,16 +244,21 @@ onMounted(() => {
 
 
   }
-  
-a {
-  text-decoration: none;
-}
+
+  a {
+    text-decoration: none;
+  }
+
   .user {
+    align-items: center;
     display: flex;
     justify-content: center;
     width: 80px;
-
-    img {
+    span{
+      margin-right:20px;
+    }
+    img{
+      margin: 0 10px;
       width: 45px;
       height: 45px;
       border-radius: 50%;

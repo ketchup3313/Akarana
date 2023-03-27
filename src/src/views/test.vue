@@ -99,10 +99,9 @@ export default {
 }
 
 .edit-form {
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
   background-color: #f5f5f5;
+  padding: 20px;
+  margin-top: 20px;
   border-radius: 5px;
 }
 
