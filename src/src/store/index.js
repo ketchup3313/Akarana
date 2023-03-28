@@ -9,8 +9,13 @@ const store = createStore({
       }
     },
     mutations: {
+      // 重置用户信息
+      RESET_USERINFO(state){
+        localStorage.removeItem('userInfo');
+        state.userInfo = {};
+      },
       SET_USERINFO (state,{userInfo}) {
-        console.log(userInfo);
+        localStorage.setItem('userInfo',JSON.stringify(userInfo));
         state.userInfo = {
           ...userInfo
         }
@@ -53,6 +58,14 @@ const store = createStore({
       },
       // type pyload
       async getUserInfo({commit,state},{payload}){
+      let userInfo = localStorage.getItem('userInfo');
+      if(userInfo !== '{}' &&  userInfo ){
+        commit({
+          type:'SET_USERINFO',
+          userInfo:JSON.parse(userInfo)
+        });
+        return;
+      }
         // commit({type:'SET_USERINFO',userinfo})
        let {data,status} = (await http.get(`/api/mine/queryInfo?id=${payload}`)).data
        if(status === 0){

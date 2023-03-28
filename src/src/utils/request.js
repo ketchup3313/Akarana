@@ -1,6 +1,6 @@
 import axios from "axios";
 const ENV = process.env.NODE_ENV;
-
+import store from "@/store";
 import router from "../router/index";
 
 // 创建axios实例  
@@ -26,8 +26,8 @@ service.interceptors.response.use((response) => {
       message: `${msg}`,
       type: "error",
     });
+    store.commit('RESET_USERINFO');
     localStorage.removeItem("@#@TOKEN");
-    localStorage.removeItem("userInfo");
     router.push('/login');
   }
   return response

@@ -1,10 +1,10 @@
 <template>
   <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
   <div class="user-profile">
-    <h2 class="profile-title">Personal profile</h2>
+    <h2 class="profile-title">Personal Profile</h2>
     <div v-if="userInfo" class="profile-content">
 
-     
+   
 
       <p>First Name: <span v-if="btnState"> {{ userInfo.firstName }}</span>
         <input v-else id="firstName" v-model="editedUserInfo.firstName" type="text" />
@@ -21,17 +21,18 @@
       <p>Password: <span v-if="btnState">{{ userInfo.password }}</span>
         <input v-else id="password" v-model="editedUserInfo.password" type="text" />
       </p>
-      <p>Address: <span v-if="btnState">{{ userInfo.address }}</span>
-        <input v-else id="address" v-model="editedUserInfo.address" type="text" />
+     <p>Address: <span v-if="btnState">{{ userInfo.address }}</span>
+        <google-autocomplete v-else id="address"  v-model="editedUserInfo.address" type="text" />
       </p>
+    
       <p>Email Address:<span v-if="btnState">{{ userInfo.emailAddress }}</span>
         <input v-else id="emailAddress" v-model="editedUserInfo.emailAddress" type="text" />
       </p>
       <p>Birthday: <span v-if="btnState">{{ userInfo.birthday }}</span>
         <input v-else id="birthday" v-model="editedUserInfo.birthday" type="text" />
       </p>
-      <button v-if="btnState" @click="btnState = false" class="editbut">Edit</button>
-      <button v-else @click="save">Save</button>
+      <button v-if="btnState" @click="btnState = false">Edit</button>
+      <button v-else @click="save">保存</button>
     </div>
   </div>
 </template>
@@ -40,7 +41,7 @@
 // 引入api
 // import api from '';
 import { mapState } from 'vuex'
-
+import GoogleAutocomplete from '../components/GoogleAutocomplete.vue';
 export default {
   data() {
     return {
@@ -63,7 +64,9 @@ export default {
       userInfo: state => state.userInfo,
     })
   },
-
+  components: {
+    GoogleAutocomplete,
+  },
   methods:{
     async save(){
        await this.$store.dispatch({
@@ -81,17 +84,7 @@ export default {
   },
   created() {
     this.setEditedUserInfo();
-    // this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
-    // 这里的 id 应该从登录后的响应中获取
-    // const id = 'your_id_here';
-    // try {
-    //   const response = await api.getUserInfo(id);
-    //   this.userInfo = response.data;
-    //   this.editedUserInfo = { ...this.userInfo }; // 初始化编辑表单的数据
-    // } catch (error) {
-    //   console.error('获取用户信息失败', error);
-    // }
+   
   },
 
 };

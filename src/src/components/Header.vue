@@ -139,10 +139,7 @@ export default {
     const editform = () => {
       router.push("/editform")
     }
-    const logout = () => {
-      localStorage.removeItem("@#@TOKEN");
-      router.push({ name: "login" });
-    };
+    
     // // 获取用户信息
 
     // const userInfo = reactive({
@@ -169,7 +166,13 @@ export default {
       NewsLetter,
       profile,
       editform,
-      logout
+    }
+  },
+  methods:{
+    logout(){
+      this.$store.commit({type:"RESET_USERINFO" })
+      localStorage.removeItem("@#@TOKEN");
+      router.push({ name: "login" });
     }
   },
   computed:{
@@ -223,7 +226,7 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  background-color:#E67B4C;
+  background-color: #FAFAFA;
 
 
 
