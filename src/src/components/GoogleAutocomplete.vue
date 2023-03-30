@@ -5,8 +5,6 @@
     placeholder="Enter address..."
     v-model="search"
   />
-
-  
 </template>
 
 <script>
@@ -26,9 +24,7 @@ export default {
       }
 
       const autocomplete = new window.google.maps.places.Autocomplete(
-      autocompleteInput.value,{
-        componentRestrictions: { country: 'nz' },
-      }
+        autocompleteInput.value
       );
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
