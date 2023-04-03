@@ -1,10 +1,15 @@
 <template>
-  <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
+  <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" > </Header>
   <div class="user-profile">
     <h2 class="profile-title">Personal Profile</h2>
     <div v-if="userInfo" class="profile-content">
-
-   
+<!-- this will show the user avatar under the personal profile -->
+<img :src="gravatarUrl" alt="用户头像" class="user-avatar" />
+    <div v-if="userInfo" class="profile-content">
+      <!-- 本次修改 -->
+      <p>Email Address:<span v-if="btnState">{{ userInfo.emailAddress }}</span>
+      <input v-else id="emailAddress" v-model="editedUserInfo.emailAddress" type="text" @input="updateGravatar" />
+    </p>
 
       <p>First Name: <span v-if="btnState"> {{ userInfo.firstName }}</span>
         <input v-else id="firstName" v-model="editedUserInfo.firstName" type="text" />
@@ -35,18 +40,23 @@
       <button v-else @click="save">保存</button>
     </div>
   </div>
+  </div>s
 </template>
 
 <script>
 // 引入api
 // import api from '';
 import { mapState } from 'vuex'
+import CryptoJS from 'crypto-js'
 import GoogleAutocomplete from '../components/GoogleAutocomplete.vue';
+
 export default {
   data() {
     return {
       btnState:true,
       showEditForm: false,
+      isCollapse: false,
+      handleCollapse: null,
       editedUserInfo: {
         firstName: '',
         lastName: '',
@@ -55,14 +65,25 @@ export default {
         password: '',
         address: '',
         emailAddress: '',
-        birthday: ''
+        birthday: '',
+        //本次修改
+        gravatarEmail: ''
       }
     };
   },
   computed: {
     ...mapState({
       userInfo: state => state.userInfo,
-    })
+    }),
+     // generate Gravatar URL
+     gravatarUrl() {
+  if (this.userInfo && this.userInfo.emailAddress) {
+    const email = this.gravatarEmail.trim().toLowerCase();
+    const hash = CryptoJS.MD5(email).toString();
+    return `https://www.gravatar.com/avatar/${hash}?d=identicon&r=pg&${Math.random().toString(36).substr(2, 9)}`;
+  }
+  return "";
+}
   },
   components: {
     GoogleAutocomplete,
@@ -80,9 +101,16 @@ export default {
       this.editedUserInfo =  {
         ...this.$store.state.userInfo
       }
-    }
+    },
+    updateGravatar() {
+      this.gravatarEmail = this.editedUserInfo.emailAddress;
+    },
   },
   created() {
+    {
+    // ...
+    this.gravatarEmail = this.userInfo.emailAddress;
+  };
     this.setEditedUserInfo();
    
   },
@@ -91,6 +119,16 @@ export default {
 </script>
 
 <style scoped>
+.user-avatar {
+  width: 150px; /* 放大头像 */
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 20px auto;
+  display: block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .user-profile {
   width: 80%;
   margin: 0 auto;
