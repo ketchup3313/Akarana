@@ -4,17 +4,17 @@
 
         <div class="container">
 
-            <el-input class="search-input" v-model="searchKey" placeholder="Search" prefix-icon="Search" />
-            <el-select v-model="sortOrder" class="sort-select" placeholder="Sort Order">
+            <el-input class="search-input" v-model="searchKey" placeholder="Search" prefix-icon="Search"  @input="group"/>
+            <el-select v-model="sortOrder" class="sort-select" placeholder="Sort Order" @change="group">
                 <el-option v-for="option in sortOptions" :key="option.value" :value="option.value"
                     :label="option.label">
                 </el-option>
             </el-select>
             <ul class="user-list">
-                <li v-for="(users, firstLetter) in filteredUsers" :key="firstLetter">
+                <li v-for="(users, firstLetter) in groupedUsers" :key="firstLetter">
                     <h3>{{ firstLetter }}</h3>
                     <ul>
-                        <li v-for="user in users" :key="user.name">{{ user.name }}</li>
+                        <li @click="userInfo(user.id)" v-for="user in users" :key="user.name">{{ user.name }}</li>
                     </ul>
                 </li>
             </ul>
@@ -22,54 +22,100 @@
     </div>
 </template>
 
-<script setup>
+<script >
 import { ref, computed } from 'vue'
-import router from "../router/index";
-import Header from '../components/Header.vue'
-import Aside from '../components/Aside.vue'
-import Main from '../components/Main.vue'
+import http from '@/utils/request'
 
-const searchKey = ref('')
-const sortOrder = ref('asc')
-const users = [
-    { name: 'Janelle Chang' },
-    { name: 'Mark Chang' },
-    { name: 'Robbie George' },
-    { name: 'Kevin Wu' },
-    { name: 'Jane Wang' },
-]
+export default {
+    // beforeCreate() {
+    //     alert('Hello')
+    // },
+    created() {
+        this.getList();
+        console.log(this);
+    },
+    data() {
+        return {
+            users: [
 
-const sortOptions = [
-    { value: 'asc', label: 'A-Z' },
-    { value: 'desc', label: 'Z-A' },
-]
-
-const filteredUsers = computed(() => {
-    const filtered = users.filter(user => {
-        return user.name.toLowerCase().includes(searchKey.value.toLowerCase())
-    })
-
-    if (sortOrder.value === 'asc') {
-        filtered.sort((a, b) => a.name.localeCompare(b.name))
-    } else {
-        filtered.sort((a, b) => b.name.localeCompare(a.name))
-    }
-
-    const groupedUsers = {}
-    filtered.forEach(user => {
-        const firstLetter = user.name[0].toUpperCase()
-        if (!groupedUsers[firstLetter]) {
-            groupedUsers[firstLetter] = []
+            ],
+            groupedUsers:{},
+            searchKey: '',
+           
+            sortOrder: 'asc',
+            sortOptions: [
+                { value: 'asc', label: 'A-Z' },
+                { value: 'desc', label: 'Z-A' },
+            ]
         }
-        groupedUsers[firstLetter].push(user)
-    })
 
-    return groupedUsers
-})
+    },
+    methods: {
+        // 跳转到用户详情
+        userInfo(id){
+            this.$router.push({
+                path:'/membersDetail',
+                query:{
+                    id
+                }
+            })
+        },
+        async getList() {
+            let { data, status } = (await http.get(`/api/members`)).data;
+            if (status === 0) {
+                this.users = data.map(item => {
+                    return {
+                        ...item,
+                        name: item.firstName + ' ' + item.lastName
+                    }
+                });
 
+                this.group();
+            } else {
+                this.users = [];
+            }
+        },
+        group(serch) {
+            console.log(1);
+            let users = [...this.users]
 
+            // 过滤
+            // if(this.searchKey !== ''){
+            //     user = user.filter(item => item.name.includes(this.searchKey) )
+            // }
+            // 分组
+            const filtered = users.filter(user => {
+                return user.name.toLowerCase().includes(this.searchKey.toLowerCase())
+            })
 
+            console.log(this.sortOrder);
+
+            if (this.sortOrder === 'asc') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name))
+            } else {
+                filtered.sort((a, b) => b.name.localeCompare(a.name))
+            }
+
+            const groupedUsers = {}
+            filtered.forEach(user => {
+                const firstLetter = user.name[0].toUpperCase()
+                if (!groupedUsers[firstLetter]) {
+                    groupedUsers[firstLetter] = []
+                }
+                groupedUsers[firstLetter].push(user)
+            })
+
+            this.groupedUsers = groupedUsers;
+            console.log( this.groupedUsers);
+
+            // return groupedUsers
+
+        },
+
+    },
+}
 </script>
+
 
 <style lang="less" scoped>
 .container {
@@ -92,6 +138,7 @@ const filteredUsers = computed(() => {
 }
 
 .user-list li {
+    cursor: pointer;
     margin-bottom: 20px;
 }
 

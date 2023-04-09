@@ -16,6 +16,39 @@ module.exports = {
       callback(res)
     })
   },
+  insert:(tableName,insertData,callback)=>{
+    const toString  = (str)=>{
+      let ary = str.split(',');
+        ary[0] = `'${ary[0]}'`
+      return ary.join(',');
+    }
+     insertData = Object.entries(insertData);
+
+
+      insertData = insertData.map((item, index) => {
+        let one = `${item[0]}${index === insertData.length - 1 ? '' : ','}`
+        let two = `${item[1]}${index === insertData.length - 1 ? '' : ','}`
+        return [one, toString(two)];
+      })
+
+      
+    let props = insertData.map(item => item[0]).reduce((cur, next) => cur + next, '')
+    let data =insertData.map(item => item[1]).reduce((cur, next) => cur + next, '')
+    let sql = `INSERT INTO ${tableName} (${props}) VALUES (${data})`
+    db.query(sql,  null, function (error, res) {
+      if (error) {
+        callback({
+          status: 1,
+          msg: error.code ? error.code : 'error',
+        })
+        return;
+      };
+      callback({
+        status: 0,
+        msg: res.message,
+      })
+    })
+  },
   update: (tableName, updateData, callback) => {
     let handerId = updateData.id;
     console.log(handerId);
