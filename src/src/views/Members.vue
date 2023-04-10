@@ -41,7 +41,7 @@ export default {
             ],
             groupedUsers:{},
             searchKey: '',
-           
+
             sortOrder: 'asc',
             sortOptions: [
                 { value: 'asc', label: 'A-Z' },
@@ -54,9 +54,9 @@ export default {
         // 跳转到用户详情
         userInfo(id){
             this.$router.push({
-                path:'/membersDetail',
+                path:'/MembersDetails',
                 query:{
-                    id
+                   id
                 }
             })
         },
@@ -78,12 +78,6 @@ export default {
         group(serch) {
             console.log(1);
             let users = [...this.users]
-
-            // 过滤
-            // if(this.searchKey !== ''){
-            //     user = user.filter(item => item.name.includes(this.searchKey) )
-            // }
-            // 分组
             const filtered = users.filter(user => {
                 return user.name.toLowerCase().includes(this.searchKey.toLowerCase())
             })
