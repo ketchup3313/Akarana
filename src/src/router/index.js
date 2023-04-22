@@ -50,6 +50,15 @@ const router = createRouter({
       path: "/edit",
       component: () => import("../views/Edit.vue"),
     },
+    {
+      path:"/rally",
+      component:()=>import("../views/Rally.vue")
+    },
+     {
+      path:'/RallyDetail',
+      name:'RallyDetail',
+      component:()=>import('../views/RallyDetails.vue')
+    },
 
   ],
 });

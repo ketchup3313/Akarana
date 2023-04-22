@@ -44,7 +44,7 @@
           </div>
   
         </div>
-        <div v-else>
+        <div v-else v-loading="loading">
           loading
         </div>
       </div>

@@ -80,7 +80,8 @@ const getLoginData = async () => {
 
   if (status === 0) {
     ElMessage({
-      message: "Congratulations! You have logged in successfully!",
+      message: "Welcome back, " + userInfo.userName,
+     
       type: "success",
     });
     // localStorage.setItem('userId',myuserInfo.id);  
