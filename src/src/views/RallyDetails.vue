@@ -47,18 +47,15 @@
             </div>
           </section>
         </div>
-        <div v-loading="loading" v-else v-loading.fullscreen.lock="fullscreenLoading"
-    type="primary"
-    @click="openFullScreen1">
-            loading..
-        </div>
+       
       </div>
     </div>
   </template>
   
   <script>
   import http from '@/utils/request'
-  
+  import { ElLoading } from 'element-plus';
+
   export default {
     data() {
       return {
@@ -87,17 +84,28 @@
         }
       },
     },
-    created() {
-      let { id } = this.$route.query;
-      http.get(`/api/rally/queryInfo?id=${id}`).then(res => {
-        let { data, status } = res.data;
-        console.log(status);
-        if (status === 0) {
-          this.details = data;
-          console.log(this.details);
-        }
-      })
-    },
+    async created() {
+  let { id } = this.$route.query;
+  const loadingInstance = ElLoading.service({
+    lock: true,
+    text: "Loading",
+    background: "rgba(0, 0, 0, 0.7)",
+  });
+
+  try {
+    const res = await http.get(`/api/rally/queryInfo?id=${id}`);
+    let { data, status } = res.data;
+    console.log(status);
+    if (status === 0) {
+      this.details = data;
+      console.log(this.details);
+    }
+  } finally {
+    loadingInstance.close(); // 关闭加载动画
+  }
+},
+
+
   }
   </script>
   

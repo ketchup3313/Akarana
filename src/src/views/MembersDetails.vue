@@ -44,16 +44,15 @@
           </div>
   
         </div>
-        <div v-else v-loading="loading">
-          loading
-        </div>
+      
       </div>
     </div>
   </template>
     
   <script >
   import http from '@/utils/request'
-  
+  import { ElLoading } from 'element-plus';
+
   export default {
     data() {
       return {
@@ -66,6 +65,11 @@
     },
     created() {
       let { id } = this.$route.query;
+      const loadingInstance = ElLoading.service({
+      lock: true,
+      text: "Loading",
+      background: "rgba(0, 0, 0, 0.7)",
+  });
       http.get(`/api/mine/queryInfo?id=${id}`).then(res => {
         let { data, status } = res.data;
         console.log(status);
@@ -73,6 +77,7 @@
           this.details = data;
           console.log(this.details);
         }
+        loadingInstance.close(); // 关闭加载动画
       })
     },
   }
