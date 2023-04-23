@@ -40,21 +40,22 @@ export default {
 
 <style>
 .photo-wall {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 10px;
-  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
 }
 
 .photo-wall__item {
+  box-sizing: border-box;
+  /* position:fixed; */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 25%;
+  padding: 10px;
 }
 
 .photo-wall__item img {
-  max-width: 100%;
-  max-height: 100%;
+  display: block;
+  width: 100%;
   transition: transform 0.3s ease-in-out;
 }
 

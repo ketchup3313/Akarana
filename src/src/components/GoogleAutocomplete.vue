@@ -24,7 +24,10 @@ export default {
       }
 
       const autocomplete = new window.google.maps.places.Autocomplete(
-        autocompleteInput.value
+        autocompleteInput.value,
+        {
+          componentRestrictions: { country: 'NZ' },
+        }
       );
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();

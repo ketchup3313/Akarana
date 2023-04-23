@@ -15,6 +15,8 @@ app.use(
 
 app.use('/api/login', require('./routes/login'))
 app.use('/api/mine', require('./routes/mine'))
+app.use('/api/members', require('./routes/members'))
+app.use('/api/rally', require('./routes/rally'))
 
 app.use((err, req, res, next) => {
   console.log(err);

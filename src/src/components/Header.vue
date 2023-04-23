@@ -22,8 +22,8 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>Rally活动中心</el-dropdown-item>
-          <el-dropdown-item @click=NewsLetter>Newsletter</el-dropdown-item>
+          <el-dropdown-item @click="Rally">All activitys</el-dropdown-item>
+          <el-dropdown-item @click="Photo">Photo</el-dropdown-item>
 
 
         </el-dropdown-menu>
@@ -40,7 +40,7 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="memberspage">Member</el-dropdown-item>
-          <el-dropdown-item @click="Photo">Photo</el-dropdown-item>
+         
 
 
         </el-dropdown-menu>
@@ -111,7 +111,7 @@ import { ref } from 'vue'
 import router from "../router/index";
 import { defineProps } from 'vue'
 import { reactive, onMounted } from 'vue'
-import { getUserInfo } from '../api/api'
+
 import { ArrowDown } from '@element-plus/icons-vue'
 import {mapState} from 'vuex';
 export default {
@@ -138,6 +138,9 @@ export default {
     }
     const editform = () => {
       router.push("/editform")
+    }
+   const Rally = () => {
+      router.push("/rally")
     }
     
     // // 获取用户信息
@@ -166,6 +169,8 @@ export default {
       NewsLetter,
       profile,
       editform,
+      Rally
+      
     }
   },
   methods:{
@@ -205,11 +210,12 @@ export default {
   flex-direction: column;
   position: absolute;
   right: 0;
-  bottom: -36px;
+  bottom: 0px;
   background-color: white;
   border: 5px;
   box-shadow: 0 4px 8px 0 rgb(7 17 27 / 10%);
   text-align: center;
+
 
   div:hover {
     color: #409eff;
@@ -257,6 +263,7 @@ export default {
     display: flex;
     justify-content: center;
     width: 80px;
+    height: 60px;
     span{
       margin-right:20px;
     }
@@ -285,5 +292,8 @@ export default {
 
 span {
   margin-right: 20px;
+}
+.el-dropdown-link:focus {
+  outline: none;
 }
 </style>
