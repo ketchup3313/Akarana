@@ -7,7 +7,7 @@
             <h2>{{ details.mainTitle }}</h2>
             <!-- <h4>{{details.subTitle}}</h4> -->
             <p class="content clearfix">
-              <img align="right" style="min-width: 500px; max-width:500px;" height="340" :src="details.img" alt="img"
+              <img align="right" style="min-width: 500px; max-width:500px;" height="340" :src="details.image" alt="img"
                 class="img">
   
               {{ details.content }}
@@ -41,8 +41,8 @@
               <p>
                 {{ details.address }}
               </p>
-  
-              <div v-html="details.mapurl"></div>
+  <!-- 改成英文的 -->
+              <div v-html="details.mapUrl"></div>
   
             </div>
           </section>
@@ -101,7 +101,7 @@
       console.log(this.details);
     }
   } finally {
-    loadingInstance.close(); // 关闭加载动画
+    loadingInstance.close(); //close draw
   }
 },
 

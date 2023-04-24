@@ -3,7 +3,7 @@
         <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
         <div class="list">
             <div class="list-item" v-for="item in dataList" :key="item.id" @click="lintoDetail(item.id)">
-                <img width="400" height="200" :src="item.img" alt="" />
+                <img width="400" height="200" :src="item.image" alt="" />
                 <div class="footer">
                     <div>
                         <h3>{{ item.mainTitle }}</h3>

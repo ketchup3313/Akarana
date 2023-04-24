@@ -45,7 +45,7 @@ let handerObj = {
     try {
       query(sql, null, (result) => {
         if (result.length !== 1) {
-            // console.log('进行插入语句');
+          
             insert('participate',req.body,(result)=>{
               res.send({
                 ...result,

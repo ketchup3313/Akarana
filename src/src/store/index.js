@@ -9,7 +9,7 @@ const store = createStore({
       }
     },
     mutations: {
-      // 重置用户信息
+      // Reset user info
       RESET_USERINFO(state){
         localStorage.removeItem('userInfo');
         state.userInfo = {};
