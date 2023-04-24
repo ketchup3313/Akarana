@@ -40,10 +40,21 @@
               </h3>
               <p>
                 {{ details.address }}
+                <div v-html="details.mapUrl"></div>
               </p>
-  <!-- 改成英文的 -->
-              <div v-html="details.mapUrl"></div>
-  
+              <div class="participants-section">
+    <h3>Who want to join:</h3>
+    <ul>
+      <li v-for="(participant, index) in participants" :key="index">
+        {{ participant.username }}
+      </li>
+    </ul>
+    <p v-if="participants.length === 0">
+      There are no participants for this rally yet.
+    </p>
+  </div>
+  <!-- 改成英文的，增加谁参加了这个活动， -->
+              
             </div>
           </section>
         </div>
@@ -59,7 +70,8 @@
   export default {
     data() {
       return {
-        details: {}
+        details: {},
+        participants: []
       }
     },
     methods: {
@@ -91,6 +103,15 @@
     text: "Loading",
     background: "rgba(0, 0, 0, 0.7)",
   });
+  try {
+    const participantsRes = await http.get(`/api/rally/queryParticipants?rallyid=${id}`);
+    let { data, status } = participantsRes.data;
+    if (status === 0) {
+      this.participants = data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
 
   try {
     const res = await http.get(`/api/rally/queryInfo?id=${id}`);
