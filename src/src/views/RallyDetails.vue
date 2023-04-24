@@ -71,7 +71,8 @@
     data() {
       return {
         details: {},
-        participants: []
+        participants: [],
+        
       }
     },
     methods: {

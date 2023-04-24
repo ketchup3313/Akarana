@@ -6,4 +6,5 @@ router.get('/',queryList)
 router.get('/queryInfo',queryInfo)
 router.post('/requestJoin',requestJoin)
 router.get('/queryParticipants', queryParticipants);
+
 module.exports = router

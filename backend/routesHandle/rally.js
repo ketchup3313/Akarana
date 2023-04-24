@@ -37,6 +37,7 @@ let handerObj = {
       })
     }
   },
+  
   queryParticipants(req, res) {
     const rallyId = req.query.rallyid;
     const sql = `SELECT username FROM participate WHERE rallyid=${rallyId}`;
