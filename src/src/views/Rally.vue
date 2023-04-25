@@ -31,6 +31,8 @@ const router = useRouter();
 async function getList() {
   let { data, status } = (await http.get('/api/rally')).data;
   if (status === 1) {
+    data.sort((a, b) => (a.status === 'open' ? -1 : b.status === 'open' ? 1 : 0));
+
     dataList.value = data;
   } else {
     dataList.value = [];
