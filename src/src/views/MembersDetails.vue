@@ -42,6 +42,20 @@
             <h3 style="margin-top: 20px;">Birthday</h3>
             <p>{{ details.birthday ? details.birthday : tip }}</p>
           </div>
+          <!-- Add a section for participated rallies -->
+          <div class="small_item">
+  <h3 style="margin-top: 20px;">Participated Rallies</h3>
+  <template v-if="participatedRallies.length">
+    <ul>
+      <li v-for="rally in participatedRallies" :key="rally.id">
+        {{ rally.mainTitle }}
+      </li>
+    </ul>
+  </template>
+  <template v-else>
+    <p>还没参加过活动</p>
+  </template>
+</div>
   
         </div>
       
@@ -57,7 +71,9 @@
     data() {
       return {
         details: {},
-        tip: 'Do not have this information'
+        tip: 'Do not have this information',
+        participatedRallies: [],
+
       }
     },
     methods: {
@@ -79,6 +95,13 @@
         }
         loadingInstance.close(); // 关闭加载动画
       })
+      // 获取用户参加过的 rally
+  http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
+    let { data, status } = res.data;
+    if (status === 0) {
+      this.participatedRallies = data;
+    }
+  });
     },
   }
   </script>

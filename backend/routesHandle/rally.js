@@ -37,6 +37,27 @@ let handerObj = {
       })
     }
   },
+  
+  queryParticipants(req, res) {
+    const rallyId = req.query.rallyid;
+    const sql = `SELECT username FROM participate WHERE rallyid=${rallyId}`;
+    try {
+      query(sql, null, (result) => {
+        res.send({
+          status: 0,
+          data: result,
+          msg: 'success',
+        });
+      });
+    } catch (error) {
+      res.send({
+        status: 1,
+        data: [],
+        msg: error.code,
+      });
+    }
+  },
+  
   // 插入语句 查询语句
   // 传参 rallyid
   //      userid
@@ -45,7 +66,7 @@ let handerObj = {
     try {
       query(sql, null, (result) => {
         if (result.length !== 1) {
-            // console.log('进行插入语句');
+          
             insert('participate',req.body,(result)=>{
               res.send({
                 ...result,

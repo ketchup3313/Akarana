@@ -3,7 +3,7 @@
         <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
         <div class="list">
             <div class="list-item" v-for="item in dataList" :key="item.id" @click="lintoDetail(item.id)">
-                <img width="400" height="200" :src="item.img" alt="" />
+                <img width="400" height="200" :src="item.image" alt="" />
                 <div class="footer">
                     <div>
                         <h3>{{ item.mainTitle }}</h3>
@@ -31,6 +31,8 @@ const router = useRouter();
 async function getList() {
   let { data, status } = (await http.get('/api/rally')).data;
   if (status === 1) {
+    data.sort((a, b) => (a.status === 'open' ? -1 : b.status === 'open' ? 1 : 0));
+
     dataList.value = data;
   } else {
     dataList.value = [];

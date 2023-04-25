@@ -63,3 +63,13 @@ export default {
   transform: scale(1.2);
 }
 </style>
+
+
+  </template>
+  
+  <script> 
+  </script>
+  <style scoped>
+  
+  </style>
+  

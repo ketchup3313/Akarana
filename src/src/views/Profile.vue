@@ -1,4 +1,5 @@
 <template>
+
   <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" > </Header>
   
   <div class="user-profile">
@@ -11,11 +12,12 @@
   <input type="file" @change="onFileChange" ref="fileInput" />
   <button @click="uploadAvatar">upload</button>
 </div>
+
       <!-- 本次修改 -->
       <p>Email Address:<span v-if="btnState">{{ userInfo.emailAddress }}</span>
-      <input v-else id="emailAddress" v-model="editedUserInfo.emailAddress" type="text" @input="updateGravatar" />
-    </p>
-
+        <input v-else id="emailAddress" v-model="editedUserInfo.emailAddress" type="text" @input="updateGravatar" @blur="validateEmail" :class="{ error: emailError }" />
+        <span v-if="emailError" class="error">{{ emailError }}</span>
+      </p>
       <p>First Name: <span v-if="btnState"> {{ userInfo.firstName }}</span>
         <input v-else id="firstName" v-model="editedUserInfo.firstName" type="text" />
       </p>
@@ -31,34 +33,31 @@
       <p>Password: <span v-if="btnState">{{ userInfo.password }}</span>
         <input v-else id="password" v-model="editedUserInfo.password" type="text" />
       </p>
-     <p>Address: <span v-if="btnState">{{ userInfo.address }}</span>
-        <google-autocomplete v-else id="address"  v-model="editedUserInfo.address" type="text" />
-      </p>
-    
-      <p>Email Address:<span v-if="btnState">{{ userInfo.emailAddress }}</span>
-        <input v-else id="emailAddress" v-model="editedUserInfo.emailAddress" type="text" />
+      <p>Address: <span v-if="btnState">{{ userInfo.address }}</span>
+        <google-autocomplete v-else id="address" v-model="editedUserInfo.address" type="text" />
       </p>
       <p>Birthday: <span v-if="btnState">{{ userInfo.birthday }}</span>
         <input v-else id="birthday" v-model="editedUserInfo.birthday" type="text" />
       </p>
       <button v-if="btnState" @click="btnState = false">Edit</button>
-      <button v-else @click="save">保存</button>
+      <button v-else :disabled="emailError !== ''" @click="save">Save</button>
+
     </div>
   </div>
-  </div>s
 </template>
 
+
 <script>
-// 引入api
-// import api from '';
 import { mapState } from 'vuex'
 import CryptoJS from 'crypto-js'
 import GoogleAutocomplete from '../components/GoogleAutocomplete.vue';
 
 export default {
+  
   data() {
     return {
       btnState:true,
+      emailError: "",
       showEditForm: false,
       isCollapse: false,
       handleCollapse: null,
@@ -71,7 +70,6 @@ export default {
         address: '',
         emailAddress: '',
         birthday: '',
-        //本次修改
         gravatarEmail: ''
       }
     };
@@ -92,6 +90,16 @@ export default {
     GoogleAutocomplete,
   },
   methods:{
+    
+    validateEmail() {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(this.editedUserInfo.emailAddress)) {
+    this.emailError = "Please enter a valid email address.";
+    console.log(this.emailError);
+  } else {
+    this.emailError = "";
+  }
+},
     async save(){
        await this.$store.dispatch({
         type:'changeUserInfo',
@@ -118,6 +126,7 @@ export default {
     this.setEditedUserInfo();
    
   },
+  
 
 };
 </script>
@@ -201,5 +210,18 @@ button:hover {
 
 .editbut:hover {
   background-color: #187bcd;
+}
+
+
+.profile-content input.error {
+  border-color: red;
+}
+input.error {
+  border-color: red;
+  color: red;
+}
+.error,
+.profile-content span[data-v-ced23842].error {
+  color: red;
 }
 </style>
