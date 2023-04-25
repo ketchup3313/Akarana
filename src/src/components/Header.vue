@@ -92,7 +92,9 @@
 
 
     <div class="user" @mouseenter="isShowUserInfo('show')" @mouseleave="isShowUserInfo('leave')">
-      <img src="../../public/ICON.png">
+       <!-- 右上角头像 -->
+    
+      <img :src="gravatarUrl" alt="用户头像" class="user-avatar" />
       <span >
         {{username}}
       </span>
@@ -181,8 +183,16 @@ export default {
     }
   },
   computed:{
+    gravatarUrl() {
+  if (this.userInfo) {
+    return this.userInfo.avatar === null ? "http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg" : this.userInfo.avatar;
+  }
+  return "";
+},
     ...mapState({
       username: state => state.userInfo.username,
+      userInfo: state => state.userInfo,
+      
     })
   }
 }
@@ -269,8 +279,8 @@ export default {
     }
     img{
       margin: 0 10px;
-      width: 45px;
-      height: 45px;
+      width: 60px;
+      height:60px;
       border-radius: 50%;
     }
   }
