@@ -18,6 +18,8 @@ app.use('/api/login', require('./routes/login'))
 app.use('/api/mine', require('./routes/mine'))
 app.use('/api/members', require('./routes/members'))
 app.use('/api/rally', require('./routes/rally'))
+app.use('/api/photo', require('./routes/photo'))
+
 
 
 app.use('/api/participatedRallies', participatedRalliesRouter);
