@@ -1,11 +1,16 @@
 <template>
   <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" > </Header>
+  
   <div class="user-profile">
     <h2 class="profile-title">Personal Profile</h2>
     <div v-if="userInfo" class="profile-content">
 <!-- this will show the user avatar under the personal profile -->
 <img :src="gravatarUrl" alt="用户头像" class="user-avatar" />
     <div v-if="userInfo" class="profile-content">
+      <div class="change-avatar">
+  <input type="file" @change="onFileChange" ref="fileInput" />
+  <button @click="uploadAvatar">upload</button>
+</div>
       <!-- 本次修改 -->
       <p>Email Address:<span v-if="btnState">{{ userInfo.emailAddress }}</span>
       <input v-else id="emailAddress" v-model="editedUserInfo.emailAddress" type="text" @input="updateGravatar" />
@@ -78,9 +83,7 @@ export default {
      // generate Gravatar URL
      gravatarUrl() {
   if (this.userInfo && this.userInfo.emailAddress) {
-    const email = this.gravatarEmail.trim().toLowerCase();
-    const hash = CryptoJS.MD5(email).toString();
-    return `https://www.gravatar.com/avatar/${hash}?d=identicon&r=pg&${Math.random().toString(36).substr(2, 9)}`;
+    return this.userInfo.avatar === null ? "http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg" : this.userInfo.avatar;
   }
   return "";
 }
@@ -108,6 +111,7 @@ export default {
   },
   created() {
     {
+      console.log(localStorage.getItem('userInfo'))
     // ...
     this.gravatarEmail = this.userInfo.emailAddress;
   };
