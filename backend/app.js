@@ -5,6 +5,7 @@ const  { expressjwt: jwt } = require("express-jwt");
 const config = require('./config')
 const participatedRalliesRouter = require('./routes/participatedRallies');
 
+
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
@@ -19,7 +20,7 @@ app.use('/api/mine', require('./routes/mine'))
 app.use('/api/members', require('./routes/members'))
 app.use('/api/rally', require('./routes/rally'))
 app.use('/api/photo', require('./routes/photo'))
-
+app.use('/api/avatar', require('./routes/avatar'));
 
 
 app.use('/api/participatedRallies', participatedRalliesRouter);

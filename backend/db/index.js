@@ -6,7 +6,17 @@ const db = mysql.createPool({
   password: 'akarana',
   database: 'akarana_admin',
 })
-
+const queryPromise = (sql, params) => {
+  return new Promise((resolve, reject) => {
+    db.query(sql, params, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
 module.exports = {
   query: (sql, arr, callback) => {
     db.query(sql, arr, function (error, res) {
@@ -16,6 +26,7 @@ module.exports = {
       callback(res)
     })
   },
+  queryPromise,
   insert:(tableName,insertData,callback)=>{
     const toString  = (str)=>{
       let ary = str.split(',');
