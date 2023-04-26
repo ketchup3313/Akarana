@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     return res.send({
       status: 1,
-      msg: 'TOKEN 解析错误',
+      msg: 'Have not login !',
     })
   }
   res.send({
