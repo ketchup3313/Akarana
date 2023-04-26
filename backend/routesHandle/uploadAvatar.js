@@ -3,14 +3,12 @@ const path = require('path');
 const { queryPromise } = require('../db');
 const fs = require('fs');
 const OSS = require('ali-oss');
+const { ossClientConfig } = require('../config');
 
 
-const client = new OSS({
-  region: 'oss-ap-southeast-1',
-  accessKeyId: 'LTAI5tR2CSMZbgyNBhrgcKn5',
-  accessKeySecret: 'iTa4d64JFXJBt5A4eGJ6OldmTeQQrl',
-  bucket: 'akarana',
-});
+
+
+const client = new OSS(ossClientConfig);
 
 // 过滤非图片文件
 const imageFilter = (req, file, cb) => {
