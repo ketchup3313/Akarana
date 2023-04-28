@@ -58,7 +58,7 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="profile"> My profile</el-dropdown-item>
-          <el-dropdown-item @click="editform">Manage my account</el-dropdown-item>
+          <el-dropdown-item @click="editform">Edit my Avatar</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -139,7 +139,7 @@ export default {
       router.push("/profile")
     }
     const editform = () => {
-      router.push("/editform")
+      router.push("/edit")
     }
    const Rally = () => {
       router.push("/rally")

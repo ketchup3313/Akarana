@@ -48,7 +48,7 @@ const router = createRouter({
     },
     {
       path: "/edit",
-      component: () => import("../views/Edit.vue"),
+      component: () => import("../views/Avatar.vue"),
     },
     {
       path:"/rally",
