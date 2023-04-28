@@ -6,7 +6,7 @@
       <div v-if="JSON.stringify(details) !== '{}'">
         <!-- show user details -->
         <h1 style="font-size: 26px;">{{ details.firstName + ' ' + details.lastName }} </h1>
-
+        <img :src="avatarUrl" alt="用户头像" class="user-avatar" />
 
         <div class="small_item">
           <h3 style="margin-top: 20px;">FirstName</h3>
@@ -21,9 +21,7 @@
           <h3 style="margin-top: 20px;">Username</h3>
           <p>{{ details.username ? details.username : tip }}</p>
         </div>
-
-
-
+        
         <div class="small_item">
           <h3 style="margin-top: 20px;">Address</h3>
           <p>{{ details.address ? details.address : tip }}</p>
@@ -73,6 +71,7 @@ export default {
       details: {},
       tip: 'Do not have this information',
       participatedRallies: [],
+      avatarUrl: ''
 
     }
   },
@@ -86,12 +85,15 @@ export default {
     text: "Loading",
     background: "rgba(0, 0, 0, 0.7)",
 });
+
     http.get(`/api/mine/queryInfo?id=${id}`).then(res => {
       let { data, status } = res.data;
       console.log(status);
       if (status === 0) {
         this.details = data;
+        this.avatarUrl = this.details.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg';
         console.log(this.details);
+        
       }
       loadingInstance.close(); // 关闭加载动画
     })
@@ -168,5 +170,12 @@ http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
 
 .container {
   padding: 20px 20%;
+}
+.user-avatar {
+  width: 100px; /* 调整头像的宽度 */
+  height: 100px; /* 调整头像的高度 */
+  border-radius: 50%; /* 将头像设为圆形 */
+  object-fit: cover; /* 保持图片的纵横比，并使其填充整个容器 */
+  margin-bottom: 20px; /* 添加底部边距 */
 }
 </style>

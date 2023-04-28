@@ -11,10 +11,17 @@
                 </el-option>
             </el-select>
             <ul class="user-list">
-                <li v-for="(users, firstLetter) in groupedUsers" :key="firstLetter">
+                <li v-for="(users, firstLetter,) in groupedUsers" :key="firstLetter">
                     <h3>{{ firstLetter }}</h3>
                     <ul>
-                        <li @click="userInfo(user.id)" v-for="user in users" :key="user.name">{{ user.name }}</li>
+   
+</ul>
+                    <ul>
+                        <li @click="userInfo(user.id)" v-for="user in users" :key="user.name">
+        <img :src="user.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg'" alt="用户头像" class="user-avatar" />
+       {{ user.name }}
+    </li>
+                        <li @click="userInfo(user.id)" v-for="user in users" :key="user.name"></li>
                     </ul>
                 </li>
             </ul>
@@ -67,7 +74,8 @@ export default {
                 this.users = data.map(item => {
                     return {
                         ...item,
-                        name: item.firstName + ' ' + item.lastName
+                        name: item.firstName + ' ' + item.lastName,
+                        avatar: item.avatar 
                     }
                 });
 
@@ -79,6 +87,7 @@ export default {
         group(serch) {
             console.log(1);
             let users = [...this.users]
+           
             const filtered = users.filter(user => {
                 return user.name.toLowerCase().includes(this.searchKey.toLowerCase())
             })
@@ -135,6 +144,7 @@ export default {
 .user-list li {
     cursor: pointer;
     margin-bottom: 20px;
+    
 }
 
 .user-list h3 {
@@ -145,5 +155,13 @@ export default {
     //Header的样式
     padding: 0 0 0 0;
     background-color: #fff;
+}
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 15px;
+    
 }
 </style>
