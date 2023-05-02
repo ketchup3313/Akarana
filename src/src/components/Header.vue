@@ -7,59 +7,60 @@
       <!-- 点击跳转到/home -->
 
       <el-link :underline="false" type="primary" href="/home">
-        <span style="text-decoration: none"> Home </span>
+        <span style="text-decoration: none"> <el-icon><HomeFilled /></el-icon>&nbsp;Home </span>
       </el-link>
     </div>
 
     <el-dropdown size="large">
       <span class="el-dropdown-link">
-        Activity
+        <el-icon><Menu /></el-icon>&nbsp; Activity
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item @click="Rally">All activitys</el-dropdown-item>
-          <el-dropdown-item @click="Photo">Photo</el-dropdown-item>
-          <el-dropdown-item @click="calendar">Calendar</el-dropdown-item>
+          <el-dropdown-item @click="Rally"><el-icon><StarFilled /></el-icon>All activitys</el-dropdown-item>
+          <el-dropdown-item @click="Photo"><el-icon><Picture /></el-icon>Photo</el-dropdown-item>
+          <el-dropdown-item @click="calendar"><el-icon><Calendar /></el-icon>Calendar</el-dropdown-item>
 
         </el-dropdown-menu>
       </template>
     </el-dropdown>
 
+    <el-dropdown size="large" disabled>
+      <span class="el-dropdown-link" ><div @click="memberspage">
+        <el-icon><Message /></el-icon>&nbsp;Members</div>
+        
+      </span>
+      <template #dropdown>
+        <!-- <el-dropdown-menu>
+          <el-dropdown-item @click="memberspage"><el-icon><ChatLineRound /></el-icon>Members</el-dropdown-item>
+        </el-dropdown-menu> -->
+      </template>
+    </el-dropdown>
+
     <el-dropdown size="large">
+      
       <span class="el-dropdown-link">
-        Members
+        <el-icon><User /></el-icon>
+        &nbsp;About me
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item @click="memberspage">Member</el-dropdown-item>
+          <el-dropdown-item @click="profile"><el-icon><Edit /></el-icon> My profile</el-dropdown-item>
+          <el-dropdown-item @click="editform"><el-icon><Avatar /></el-icon>Edit my Avatar</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
 
     <el-dropdown size="large">
       <span class="el-dropdown-link">
-        About me
-        <el-icon class="el-icon--right">
-          <arrow-down />
-        </el-icon>
-      </span>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item @click="profile"> My profile</el-dropdown-item>
-          <el-dropdown-item @click="editform">Edit my Avatar</el-dropdown-item>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
-
-    <el-dropdown size="large">
-      <span class="el-dropdown-link">
-        How to use
+        <el-icon><InfoFilled /></el-icon>
+        &nbsp;More information
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>

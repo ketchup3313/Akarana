@@ -5,9 +5,11 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import store from './store'
 import router from './router'
 import VueGoogleMap from 'vue3-google-map';
+
 // 引入 Element Plus 样式文件
 import 'element-plus/dist/index.css'
 const app = createApp(App);
+
 app.use(store);
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) { 

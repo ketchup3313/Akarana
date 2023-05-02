@@ -24,7 +24,8 @@
           </el-input>
         </el-form-item>
         <el-button type="primary" class="login_submit" @click="onLogin">Login</el-button>
-        <div class="login_register">Register</div>
+        <div class="login_register" @click="openPdf">Register form</div>
+        <div class="test">Can't login? Please contact mentortoc@gmail.com </div>
       </el-form>
     </div>
   </div>
@@ -38,6 +39,12 @@ import router from "../router/index";
 import axios from 'axios'
 import { reactive, ref } from "vue";
 import { onMounted, onUnmounted } from "vue";
+const openPdf = () => {
+  const pdfPath = process.env.BASE_URL + 'applicationform.pdf';
+  window.open(pdfPath, '_blank');
+};
+
+
 // 初始的ref
 const ref_form = ref(null);
 // 表单的数据声明
@@ -56,6 +63,7 @@ const rules = {
   ],
 };
 // 登录的方法
+
 const onLogin = () => {
   ref_form.value.validate((val) => {
     if (val) {
@@ -183,6 +191,14 @@ onUnmounted(() => {
         width: 6.25rem;
         font-size: 0.875rem;
         margin: 0 auto;
+      }
+      .test{
+        // 字体变小
+        font-size: 0.575rem;
+        // 字体颜色
+        color: #999;
+        margin-top: 10px;
+
       }
 
       :deep(.el-input-group__prepend) {
