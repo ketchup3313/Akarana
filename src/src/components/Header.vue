@@ -7,9 +7,7 @@
       <!-- 点击跳转到/home -->
 
       <el-link :underline="false" type="primary" href="/home">
-        <span style="text-decoration: none">
-          Home
-        </span>
+        <span style="text-decoration: none"> Home </span>
       </el-link>
     </div>
 
@@ -24,7 +22,7 @@
         <el-dropdown-menu>
           <el-dropdown-item @click="Rally">All activitys</el-dropdown-item>
           <el-dropdown-item @click="Photo">Photo</el-dropdown-item>
-
+          <el-dropdown-item @click="calendar">Calendar</el-dropdown-item>
 
         </el-dropdown-menu>
       </template>
@@ -40,13 +38,9 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="memberspage">Member</el-dropdown-item>
-         
-
-
         </el-dropdown-menu>
       </template>
     </el-dropdown>
-
 
     <el-dropdown size="large">
       <span class="el-dropdown-link">
@@ -63,8 +57,6 @@
       </template>
     </el-dropdown>
 
-
-
     <el-dropdown size="large">
       <span class="el-dropdown-link">
         How to use
@@ -77,74 +69,71 @@
           <el-dropdown-item>Action 1</el-dropdown-item>
           <el-dropdown-item>Action 2</el-dropdown-item>
           <el-dropdown-item>Action 3</el-dropdown-item>
-
         </el-dropdown-menu>
       </template>
     </el-dropdown>
 
+    <span class="username"> </span>
 
+    <div
+      class="user"
+      @mouseenter="isShowUserInfo('show')"
+      @mouseleave="isShowUserInfo('leave')"
+    >
+      <!-- 右上角头像 -->
 
-    <span class="username">
-
-
-    </span>
-
-
-
-    <div class="user" @mouseenter="isShowUserInfo('show')" @mouseleave="isShowUserInfo('leave')">
-       <!-- 右上角头像 -->
-    
       <img :src="gravatarUrl" alt="用户头像" class="user-avatar" />
-      <span >
-        {{username}}
-      </span>
+      <!-- <span>
+        {{ userInfo.firstName }}
+      </span> -->
       <div class="userInfo" v-show="show">
-        <div @click='logout'>
-          Log out
-        </div>
+        <div @click="logout">Log out</div>
       </div>
     </div>
-
   </div>
 </template>
 
-<script >
-import { ref } from 'vue'
+<script>
+import { ref } from "vue";
 import router from "../router/index";
-import { defineProps } from 'vue'
-import { reactive, onMounted } from 'vue'
+import { defineProps } from "vue";
+import { reactive, onMounted } from "vue";
 
-import { ArrowDown } from '@element-plus/icons-vue'
-import {mapState} from 'vuex';
+import { ArrowDown } from "@element-plus/icons-vue";
+import { mapState } from "vuex";
+import { calendarEmits } from "element-plus";
 export default {
   setup() {
     // 获取父组件的函数
     // const { isCollapse, handleCollapse } = defineProps(['isCollapse', 'handleCollapse'])
     //// 鼠标移动个人信息展示
-    let show = ref(false)
+    let show = ref(false);
     const isShowUserInfo = (type) => {
-      type === "show" ? show.value = true : show.value = false
-    }
+      type === "show" ? (show.value = true) : (show.value = false);
+    };
 
     const memberspage = () => {
       router.push("/members");
-    }
+    };
     const NewsLetter = () => {
-      router.push("/NewsLetter")
-    }
+      router.push("/NewsLetter");
+    };
     const Photo = () => {
-      router.push("/Photo")
-    }
+      router.push("/Photo");
+    };
     const profile = () => {
-      router.push("/profile")
-    }
+      router.push("/profile");
+    };
     const editform = () => {
-      router.push("/edit")
-    }
-   const Rally = () => {
-      router.push("/rally")
-    }
-    
+      router.push("/edit");
+    };
+    const Rally = () => {
+      router.push("/rally");
+    };
+    const calendar = () => {
+      router.push("/calendar");
+    };
+
     // // 获取用户信息
 
     // const userInfo = reactive({
@@ -152,17 +141,17 @@ export default {
     //   headImg: ''
     // })
     const getUserInfoData = async () => {
-      const res = await getUserInfo()
+      const res = await getUserInfo();
       if (res?.name && res?.headImg) {
-        userInfo.name = res.name
-        userInfo.headImg = res.headImg
+        userInfo.name = res.name;
+        userInfo.headImg = res.headImg;
       }
-    }
+    };
     onMounted(() => {
       // getUserInfoData()
-    })
+    });
 
-    return{
+    return {
       // isCollapse
       isShowUserInfo,
       show,
@@ -171,39 +160,37 @@ export default {
       NewsLetter,
       profile,
       editform,
-      Rally
-      
-    }
+      Rally,
+      calendar,
+    };
   },
-  methods:{
-    logout(){
-      this.$store.commit({type:"RESET_USERINFO" })
+  methods: {
+    logout() {
+      this.$store.commit({ type: "RESET_USERINFO" });
       localStorage.removeItem("@#@TOKEN");
       router.push({ name: "login" });
-    }
+    },
   },
-  computed:{
+  computed: {
     gravatarUrl() {
-  if (this.userInfo) {
-    return this.userInfo.avatar === null ? "http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg" : this.userInfo.avatar;
-  }
-  return "";
-},
+      if (this.userInfo) {
+        return this.userInfo.avatar === null
+          ? "http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg"
+          : this.userInfo.avatar;
+      }
+      return "";
+    },
     ...mapState({
-      username: state => state.userInfo.username,
-      userInfo: state => state.userInfo,
-      
-    })
-  }
-}
+      username: (state) => state.userInfo.username,
+      userInfo: (state) => state.userInfo,
+    }),
+  },
+};
 </script>
 
 <style lang="less" scoped>
 .el-dropdown-link {
   font-size: 25;
-
-
-
 }
 
 .el-dropdown-link {
@@ -211,7 +198,6 @@ export default {
   color: #303133;
   display: flex;
   align-items: center;
-
 }
 
 .userInfo {
@@ -219,13 +205,12 @@ export default {
   display: flex;
   flex-direction: column;
   position: absolute;
-  right: 0;
-  bottom: 0px;
+  right: 20px;
+  top: 60px;
   background-color: white;
   border: 5px;
   box-shadow: 0 4px 8px 0 rgb(7 17 27 / 10%);
   text-align: center;
-
 
   div:hover {
     color: #409eff;
@@ -242,12 +227,7 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  background-color: #FAFAFA;
-
-
-
-
-
+  background-color: #fafafa;
 
   .homeIcon {
     display: flex;
@@ -260,8 +240,6 @@ export default {
     span {
       margin-left: 10px;
     }
-
-
   }
 
   a {
@@ -274,13 +252,13 @@ export default {
     justify-content: center;
     width: 80px;
     height: 60px;
-    span{
-      margin-right:20px;
+    span {
+      margin-right: 20px;
     }
-    img{
+    img {
       margin: 0 10px;
       width: 60px;
-      height:60px;
+      height: 60px;
       border-radius: 50%;
     }
   }

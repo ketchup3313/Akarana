@@ -1,7 +1,4 @@
 <template>
-
-
-
   <el-menu :collapse="isCollapse" class="el-menu-vertical-demo" active-text-color="#ffd04b" background-color="#545c64"
     text-color="#fff">
     <div class="xd-icon">

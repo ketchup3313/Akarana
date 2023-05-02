@@ -108,10 +108,17 @@ http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
 }
 </script>
   
-<style  scoped>
+<style scoped>
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 100%);
 }
 
 .clearfix:after {
@@ -125,10 +132,21 @@ http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
   margin: 10px 0px;
   letter-spacing: 2px;
   color: #747474;
+  transition: 0.3s;
+  transform: scale(1);
+  box-shadow: none;
 }
+
+.small_item p:hover {
+  color: #333;
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
 
 .small_item h3 {
   color: #5e5e5e;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .p {
@@ -142,6 +160,13 @@ http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
   letter-spacing: 2px;
   border-radius: 30px;
   background-image: linear-gradient(90deg, rgb(149, 223, 236), rgb(138, 226, 138));
+  transition: 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  background-image: linear-gradient(90deg, rgb(138, 226, 138), rgb(149, 223, 236));
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 .section_join {
@@ -152,6 +177,7 @@ http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
   border-radius: 6px;
   padding: 20px 30px;
   background-color: #fafafa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .content {
@@ -159,23 +185,29 @@ http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
   line-height: 40px;
 }
 
-.header_my {
-  /* display: flex; */
-}
-
 .img {
   border-radius: 10px;
   object-fit: cover;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
 }
 
 .container {
   padding: 20px 20%;
 }
+
 .user-avatar {
-  width: 100px; /* 调整头像的宽度 */
-  height: 100px; /* 调整头像的高度 */
-  border-radius: 50%; /* 将头像设为圆形 */
-  object-fit: cover; /* 保持图片的纵横比，并使其填充整个容器 */
-  margin-bottom: 20px; /* 添加底部边距 */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 </style>

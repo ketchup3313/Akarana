@@ -59,6 +59,11 @@ const router = createRouter({
       name:'RallyDetail',
       component:()=>import('../views/RallyDetails.vue')
     },
+    {
+      path:'/calendar',
+      component:()=>import('../views/calendar.vue')
+    },
+
 
   ],
 });

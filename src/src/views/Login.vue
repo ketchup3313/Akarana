@@ -37,6 +37,7 @@ import http from '@/utils/request'
 import router from "../router/index";
 import axios from 'axios'
 import { reactive, ref } from "vue";
+import { onMounted, onUnmounted } from "vue";
 // 初始的ref
 const ref_form = ref(null);
 // 表单的数据声明
@@ -95,6 +96,24 @@ const getLoginData = async () => {
 
 };
 
+let bgMoveHandler;
+
+onMounted(() => {
+  bgMoveHandler = (e) => {
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+    const xOffset = -(x * 20);
+    const yOffset = -(y * 20);
+
+    const login = document.querySelector(".login");
+    login.style.backgroundPosition = `calc(50% + ${xOffset}px) calc(50% + ${yOffset}px)`;
+  };
+  document.addEventListener("mousemove", bgMoveHandler);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("mousemove", bgMoveHandler);
+});
 
 </script>
 
@@ -114,8 +133,10 @@ const getLoginData = async () => {
   height: 100%;
   //图片
   // background-image: url("../assets/bj.jpeg");
+  background-image: url("http://akarana.oss-ap-southeast-1.aliyuncs.com/v2-6da2880b1587cb79ae0e9450222ab0e0_r.jpg");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: calc(100% + 40px) calc(100% + 40px);
+
   background-position: 50% 50%;
   background-attachment: fixed;
 

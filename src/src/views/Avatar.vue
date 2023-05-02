@@ -2,7 +2,7 @@
   <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse"> </Header>
 
   <div class="user-profile">
-    <h2 class="profile-title">Personal Profile</h2>
+    <h2 class="profile-title">Edit My Avatar</h2>
     <div v-if="userInfo" class="profile-content">
       <img :src="file || gravatarUrl" alt="用户头像" class="user-avatar" />
     </div>
@@ -15,9 +15,9 @@
           id="file"
           @change="choose"
         />
-        选择头像
+        Choose Avatar
       </el-button>
-      <el-button type="primary" @click="uploadImg">上传头像</el-button>
+      <el-button type="primary" @click="uploadImg">Confirm Avatar</el-button>
     </div>
   </div>
 </template>
@@ -26,6 +26,8 @@
 import store from "../store/index";
 import { mapState } from "vuex";
 import http from "@/utils/request";
+import { ElMessage } from "element-plus";
+
 export default {
   data() {
     return {
@@ -38,7 +40,6 @@ export default {
     ...mapState({
       userInfo: (state) => state.userInfo,
     }),
-    // generate Gravatar URL
     gravatarUrl() {
       if (this.userInfo && this.userInfo.emailAddress) {
         return this.userInfo.avatar === null
@@ -49,33 +50,29 @@ export default {
     },
   },
   methods: {
-    // 获取图片并预览
-    async choose(vent) {
-      let e = window.event || vent; // change事件获取到的数据
-      if (e.target.files[0].size > 2 * 1024 * 1024) {
-        // 限制上传图片文件大小
-        //ElMessage.error('上传单个封面大小不能超过 2M!')
+    choose(event) {
+      let e = window.event || event;
+      if (e.target.files[0].size > 5 * 1024 * 1024) {
       } else {
-        // 获取图片地址
         let file = e.target.files[0];
 
         const formdate = new FormData();
         formdate.append("avatar", file);
-        // 将文件对象存储到组件的 data 中
         this.formdate = formdate;
         let reader = new FileReader();
-        // 读取文件内容
         reader.readAsDataURL(file);
         reader.onload = (result) => {
-          
           this.file = result.target.result;
-           // 图片地址 Base64 格式的 可预览赋值给 this.file 以进行预览
         };
       }
+      
+      // 添加选择完成提示
+      ElMessage({
+        message: "Choose Complete",
+        type: "success",
+      });
     },
-    // 上传图片
     async uploadImg() {
-      // 调用 http.post 方法，发送图片数据到服务器
       const { data } = await http.post(
         `/api/avatar/${this.userInfo.username}`,
         this.formdate,
@@ -83,28 +80,35 @@ export default {
       );
       console.log(data);
       localStorage.removeItem("userInfo");
-      // 重新获取用户信息并更新用户头像
       store.dispatch({
         type: "getUserInfo",
         payload: this.userInfo.id,
       });
+      
+      // 添加上传成功提示
+      ElMessage({
+        message: "Confirmed",
+        type: "success",
+      });
     },
   },
 };
+
 </script>
 
 <style scoped>
 .chooseAvg {
   position: relative;
 }
+/* <!-- 将头像放大 --> */
 .user-avatar {
-  width: 150px; /* 放大头像 */
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin: 20px auto;
-  display: block;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px; /* 设置头像宽度 */
+  height: 300px; /* 设置头像高度 */
+  object-fit: cover; /* 设置图片的尺寸和容器尺寸不一致时如何适应容器 */
+  border-radius: 50%; /* 设置圆角 */
+  margin: 20px auto; /* 居中显示 */
+  display: block; /* 转为块级元素，使 margin:auto 居中生效 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
 }
 #file {
   position: absolute;
@@ -126,12 +130,12 @@ export default {
 }
 
 .profile-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-  padding: 20px;
+  text-align: center; /* 居中对齐 */
+  font-size: 48px; /* 设置字体大小 */
+  font-weight: bold; /* 设置粗体 */
+  margin-bottom: 20px; /* 底部留白 */
+  color: #333; /* 字体颜色 */
+  padding: 20px; /* 内边距 */
 }
 
 .profile-content {
@@ -195,5 +199,31 @@ input.error {
 .error,
 .profile-content span[data-v-ced23842].error {
   color: red;
+}
+
+/* 居中选择头像和上传头像按钮 */
+.chooseAvg {
+  position: relative; /* 设置为相对定位 */
+  display: flex; /* 弹性盒子 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+}
+
+.btn-box {
+  display: flex; /* 弹性盒子 */
+  justify-content: center; /* 水平居中 */
+  margin-top: 20px; /* 设置上边距 */
+}
+
+/* 将按钮放大 */
+.el-button {
+  font-size: 16px;
+  padding: 28px 96px;
+}
+
+.el-button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
 }
 </style>
