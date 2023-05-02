@@ -4,7 +4,7 @@
     <div class="xd-icon">
       <img src="../../public/ICON.png">
       <span>
-        Member Only
+        Members Only
       </span>
 
     </div>
