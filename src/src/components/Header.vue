@@ -29,8 +29,8 @@
     </el-dropdown>
 
     <el-dropdown size="large" disabled>
-      <span class="el-dropdown-link" ><div @click="memberspage">
-        <el-icon><Message /></el-icon>&nbsp;Members</div>
+      <span class="el-dropdown-link" @click="memberspage" >
+         <el-icon><Menu /></el-icon> &nbsp;Members
         
       </span>
       <template #dropdown>
