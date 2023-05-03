@@ -15,7 +15,7 @@
                     <h3>{{ firstLetter }}</h3>
                     <ul>
                         <li @click="userInfo(user.id)" v-for="user in users" :key="user.name">
-                            <img :src="user.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg'" alt="用户头像" class="user-avatar" />
+                            <img :src="user.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/uploads/avatars/Yijun-1682600472281.jpeg'" alt="用户头像" class="user-avatar" />
                             <span class="user-name">{{ user.name }}</span>
                         </li>
                     </ul>
