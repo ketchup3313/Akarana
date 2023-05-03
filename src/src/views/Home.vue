@@ -85,6 +85,6 @@
 
   .header-image {
   max-width: 100%;
-  max-height: 955px;
+  max-height: 100%;
 }
   </style>
