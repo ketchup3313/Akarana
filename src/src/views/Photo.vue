@@ -8,7 +8,7 @@
           <el-main>
             <div class="photo-wall">
               <div v-for="(image, index) in dataList" :key="index" class="photo-wall__item">
-                <img :src="image.url" >
+                <img :src="image.url"  >
               </div>
             </div>
           </el-main>

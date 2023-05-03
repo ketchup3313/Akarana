@@ -164,7 +164,7 @@ export default {
 }
 
 button {
-  background-color: #4caf50;
+  background-color: #ff8936;
   border: none;
   color: white;
   text-align: center;

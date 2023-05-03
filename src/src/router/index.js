@@ -63,6 +63,10 @@ const router = createRouter({
       path:'/calendar',
       component:()=>import('../views/calendar.vue')
     },
+    {
+      path:'/document',
+      component:()=>import('../views/Opendoc.vue')
+    }
 
 
   ],

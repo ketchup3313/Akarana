@@ -1,10 +1,11 @@
 <template>
   <div class="home">
+    <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
     <el-container>
       <el-container>
-        <el-header>
-          <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
-        </el-header>
+     
+        
+    
         <el-main>
           <div class="calendar-title">Akarana Club Calendar</div>
           <div class="calendar">

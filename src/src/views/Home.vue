@@ -1,17 +1,17 @@
-  <template>
-    <div class="home">
-      <el-container>
-        <el-container>
-          <el-header>
-            <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
-          </el-header>
-          <img class="header-image" src="/homepage.png" alt="Header image"> 
-          <!-- <button @click="handerOne">3212</button>] -->
-          <Main />
-        </el-container>
-      </el-container>
-    </div>
-  </template>
+<template>
+   
+
+   <div class="ha">
+    <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
+
+
+    
+
+   
+        <img class="header-image" src="/homepage.png" >
+        <!-- <button @click="handerOne">3212</button>] -->
+      </div>
+</template>
   <script >
   import Header from '../components/Header.vue'
   import Aside from '../components/Aside.vue'
@@ -61,30 +61,41 @@
 
   </script>
 
-  <style lang="less" scoped>
-  .el-aside {
-    width: auto;
-    background-color: #545c64;
-    width: auto;
-    overflow: hidden;
-  }
-
-  .el-container {
-    height: 100vh;
-  }
-
-  .el-main {
-    display: flex;
-  }
-
-  .el-header {
-    //Header的样式
-    padding: 0 0 0 0;
-    background-color: #fff;
-  }
-
-  .header-image {
-  max-width: 100%;
-  max-height: 100%;
+<style lang="less" scoped>
+.el-aside {
+  width: auto;
+  background-color: #545c64;
+  width: auto;
+  overflow: hidden;
 }
-  </style>
+
+.el-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.el-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.el-header {
+  //Header的样式
+  padding: 0 0 0 0;
+  background-color: #fff;
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
+
+}
+.ha{
+  width: 100%;
+  height: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+</style>

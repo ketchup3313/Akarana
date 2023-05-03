@@ -1,7 +1,6 @@
 <template>
-  <el-header>
+ 
     <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
-  </el-header>
   <div class="user-profile">
     <h2 class="profile-title">Personal Profile</h2>
     <div v-if="userInfo" class="profile-content">
@@ -93,11 +92,14 @@
           <p class="bold-text">Birthday:</p>
           <p v-if="btnState">{{ userInfo.birthday }}</p>
           <p v-else>
-            <input
-              id="birthday"
-              v-model="editedUserInfo.birthday"
-              type="text"
-            />
+            <el-date-picker
+      id="birthday"
+      v-model="editedUserInfo.birthday"
+      type=“date”
+      placeholder="Select Birthday"
+      
+      format="YYYY-MM-DD"
+    ></el-date-picker>
           </p>
         </div>
         <button v-if="btnState" @click="btnState = false">Edit</button>
@@ -161,6 +163,10 @@ export default {
       }
     },
     async save() {
+      
+      if (this.editedUserInfo.birthday instanceof Date) {
+    this.editedUserInfo.birthday = this.editedUserInfo.birthday.toLocaleDateString('en-CA');
+  }
       await this.$store.dispatch({
         type: "changeUserInfo",
         payload: this.editedUserInfo,
@@ -229,10 +235,7 @@ export default {
   padding: 20px;
 }
 
-.profile-content input {
- 
- 
-}
+
 
 .profile-content span {
   color: #333;
@@ -255,7 +258,7 @@ export default {
 button {
   width: 300px;
   height: 40px;
-  background-color: #4caf50;
+  background-color: #ff8936;
   border: none;
   color: white;
   text-align: center;

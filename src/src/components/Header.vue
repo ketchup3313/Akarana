@@ -67,9 +67,10 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>Action 1</el-dropdown-item>
-          <el-dropdown-item>Action 2</el-dropdown-item>
-          <el-dropdown-item>Action 3</el-dropdown-item>
+   
+          <el-dropdown-item @click="openwebiste"><el-icon><Promotion /></el-icon> Our website</el-dropdown-item>
+          <el-dropdown-item @click="opendocument"> <el-icon><Document /></el-icon> About this members only website</el-dropdown-item>
+          
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -134,6 +135,9 @@ export default {
     const calendar = () => {
       router.push("/calendar");
     };
+    const opendocument = () => {
+      router.push("/document");
+    };
 
     // // 获取用户信息
 
@@ -163,9 +167,13 @@ export default {
       editform,
       Rally,
       calendar,
+      opendocument,
     };
   },
   methods: {
+    openwebiste() {
+      window.open("https://www.akaranacaravanclub.co.nz/");
+    },
     logout() {
       this.$store.commit({ type: "RESET_USERINFO" });
       localStorage.removeItem("@#@TOKEN");
@@ -258,8 +266,8 @@ export default {
     }
     img {
       margin: 0 10px;
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
     }
   }
