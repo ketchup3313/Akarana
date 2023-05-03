@@ -9,14 +9,7 @@
         <el-main>
           <div class="calendar-title">Akarana Club Calendar</div>
           <div class="calendar">
-            <iframe
-              src="https://calendar.google.com/calendar/embed?src=1052831052%40qq.com&ctz=Pacific%2FAuckland"
-              style="border: 0"
-              width="800"
-              height="600"
-              frameborder="0"
-              scrolling="no"
-            ></iframe>
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23EF6C00&ctz=Pacific%2FAuckland&showTitle=1&showNav=0&showPrint=0&showTabs=0&showCalendars=0&src=MTA1MjgzMTA1MkBxcS5jb20&color=%23F4511E" style="border:solid 1px #777" width="1000" height="600" frameborder="0" scrolling="no"></iframe>
           </div>
         </el-main>
       </el-container>

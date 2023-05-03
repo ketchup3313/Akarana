@@ -220,6 +220,9 @@ export default {
   border: 5px;
   box-shadow: 0 4px 8px 0 rgb(7 17 27 / 10%);
   text-align: center;
+  // 往左移动
+  transform: translateX(30%);
+
 
   div:hover {
     color: #409eff;

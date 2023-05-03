@@ -1,21 +1,25 @@
 <template>
-    <div class="home">
+  <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
+  <div class="home">
+    <el-container>
       <el-container>
-        <el-container>
-          <el-header>
-            <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
-          </el-header>
-          <el-main>
-            <div class="photo-wall">
-              <div v-for="(image, index) in dataList" :key="index" class="photo-wall__item">
-                <img :src="image.url"  >
-              </div>
+        <el-header>
+        </el-header>
+        <el-main>
+          <div class="photo-wall">
+            <div v-for="(image, index) in dataList" :key="index" class="photo-wall__item">
+              <img :src="image.url" @click="viewImage(image)">
             </div>
-          </el-main>
-        </el-container>
+          </div>
+        </el-main>
       </el-container>
-    </div>
-  </template>
+    </el-container>
+
+    <el-dialog :model-value="viewImageDialog" @update:model-value="viewImageDialog = !viewImageDialog" width="80%">
+      <img :src="currentImage.url" class="full-image" />
+    </el-dialog>
+  </div>
+</template>
   
   <script>
   import http from '@/utils/request'
@@ -24,7 +28,9 @@
     name: 'PhotoWall',
     data() {
       return {
-        dataList: []
+        dataList: [],
+    viewImageDialog: false,
+    currentImage: {}
       }
     },
     created(){
@@ -40,6 +46,10 @@
                   this.dataList = [];
               }
           },
+          viewImage(image) {
+    this.currentImage = image;
+    this.viewImageDialog = true;
+  }
     }
   }
   </script>
@@ -78,4 +88,12 @@
   .photo-wall__item:hover img {
     transform: scale(1.2);
   }
+  .full-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
   </style>

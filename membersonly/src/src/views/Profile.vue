@@ -310,7 +310,5 @@ input.error {
   
 }
 /* 日期选择器宽度 */
-.el-date-picker.el-input {
-  width: 1000%;
-}
+
 </style>
