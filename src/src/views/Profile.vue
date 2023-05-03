@@ -230,14 +230,8 @@ export default {
 }
 
 .profile-content input {
-  flex-grow: 1;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 6px 12px;
-  font-size: 14px;
-  margin-left: 8px;
-  margin-top: -20px;
-  outline: auto; /* 添加这行可以移除输入框在获得焦点时的默认轮廓 */
+ 
+ 
 }
 
 .profile-content span {
@@ -254,6 +248,7 @@ export default {
   margin-left: 8px;
   outline: auto;
   width: 30%; /* 增大输入框长度 */
+  border: none;
 }
 
 
@@ -299,5 +294,6 @@ input.error {
 .error,
 .profile-content span[data-v-ced23842].error {
   color: red;
+  
 }
 </style>

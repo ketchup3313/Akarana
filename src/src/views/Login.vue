@@ -25,7 +25,7 @@
         </el-form-item>
         <el-button type="primary" class="login_submit" @click="onLogin">Login</el-button>
         <div class="login_register" @click="openPdf">Register form</div>
-        <div class="test">Can't login? Please contact mentortoc@gmail.com </div>
+        <!-- <div class="test"></div> -->
       </el-form>
     </div>
   </div>

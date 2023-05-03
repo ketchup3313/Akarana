@@ -8,7 +8,7 @@ module.exports = (req, res) => {
     if (result.length !== 1) {
       return res.send({
         status: 1,
-        msg: '该用户不存在',
+        msg: 'username error,Can\'t login? Please contact mentortoc@gmail.com',
       })
     }
   
@@ -16,7 +16,7 @@ module.exports = (req, res) => {
     if (!passRes) {
       return res.send({
         status: 1,
-        msg: '密码错误',
+        msg: 'password error,Can\'t login? Please contact mentortoc@gmail.com ',
       })
     }
     const token = jwt.sign({ username: req.body.username }, config.jwtKey, {
@@ -24,7 +24,7 @@ module.exports = (req, res) => {
     })
     res.send({
       status: 0,
-      msg: '登陆成功',
+      msg: 'login success',
       token,
       userInfo:result[0]
     })
