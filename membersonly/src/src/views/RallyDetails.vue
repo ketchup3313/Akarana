@@ -27,7 +27,7 @@
           </section>
           <section class="small">
             <div class="small_item">
-              <h3>
+              <h3 class="bulletintext">
                 Time
               </h3>
               <p>
@@ -35,11 +35,13 @@
               </p>
             </div>
             <div class="small_item">
-              <h3>
+              <h3 class="bulletintext">
                 Address
               </h3>
               <p>
                 {{ details.address }}
+
+              
                 <div v-html="details.mapUrl"></div>
               </p>
               <div class="participants-section">
@@ -52,6 +54,12 @@
     <p v-if="participants.length === 0">
       There are no participants for this rally yet.
     </p>
+    <h3 class="bulletintext">Bulletin:</h3>
+   
+                <div class="download-pdf-button" >
+  <button @click="previewPdf" class="btn download-pdf-btn">Download PDF</button>
+</div>
+    
   </div>
   <!-- 改成英文的，增加谁参加了这个活动， -->
               
@@ -68,14 +76,29 @@
   import { ElLoading } from 'element-plus';
 
   export default {
+    
     data() {
       return {
         details: {},
         participants: [],
-        
+        bulletin: [],
+        urlWithTimestamp:[]
       }
     },
     methods: {
+      previewPdf() {
+    if (this.details.bulletin) {
+      const timestamp = new Date().getTime();
+    const urlWithTimestamp = `${this.details.bulletin}?t=${timestamp}`;
+    console.log(urlWithTimestamp);
+      window.open(urlWithTimestamp);
+    } else {
+      ElMessage({
+        message: "No PDF available.",
+        type: "warning",
+      });
+    }
+  },
       async requestJoin(rallyid) {
         let res = await http.post('/api/rally/requestJoin', {
           userid: this.$store.state.userInfo.id,
@@ -97,6 +120,7 @@
         }
       },
     },
+ 
     async created() {
   let { id } = this.$route.query;
   const loadingInstance = ElLoading.service({
@@ -113,7 +137,16 @@
   } catch (error) {
     console.error(error);
   }
-
+  // bulletin
+  try {
+    const bulletin = await http.get(`/api/rally/queryInfo?rallyid=${id}`);
+    let { data, status } = participantsRes.data;
+    if (status === 0) {
+      this.participants = data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
   try {
     const res = await http.get(`/api/rally/queryInfo?id=${id}`);
     let { data, status } = res.data;
@@ -126,6 +159,7 @@
     loadingInstance.close(); //close draw
   }
 },
+
 
 
   }
@@ -195,5 +229,8 @@
   
   .container {
     padding: 20px 20%;
+  }
+  .bulletintext{
+    margin-top: 30px;
   }
   </style>

@@ -85,6 +85,7 @@
               id="address"
               v-model="editedUserInfo.address"
               type="text"
+              @input="handleAddressChange"
             />
           </p>
         </div>
@@ -155,6 +156,9 @@ export default {
     GoogleAutocomplete,
   },
   methods: {
+    handleAddressChange(event) {
+    this.editedUserInfo.address = event.target.value;
+  },
     validateEmail() {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(this.editedUserInfo.emailAddress)) {

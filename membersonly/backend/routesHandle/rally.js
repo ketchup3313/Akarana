@@ -19,7 +19,7 @@ let handerObj = {
     }
     
   },
-
+  
   queryInfo(req, res) {
     const sql = `SELECT * FROM rally WHERE id=${req.query.id}`
     try {
