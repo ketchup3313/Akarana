@@ -63,8 +63,10 @@ const rules = {
   ],
 };
 // 登录的方法
-
+console.log("1");
 const onLogin = () => {
+  console.log("2");
+  
   ref_form.value.validate((val) => {
     if (val) {
       getLoginData();
@@ -73,16 +75,19 @@ const onLogin = () => {
 };
 // 获取登录数据
 const getLoginData = async () => {
+  console.log("3");
 
-  const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login', {
+  const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login/', {
+    
     username: userInfo.userName,
     password: userInfo.password
   });
-
+  console.log("4");
   if (status === 1) {
+    console.log("5");
     ElMessage({
       message: `${msg}`,
-      type: "error",
+      type: "errr",
     });
     return;
   }
@@ -121,8 +126,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener("mousemove", bgMoveHandler);
+    
 });
-
 </script>
 
 <style lang="less" scoped>
