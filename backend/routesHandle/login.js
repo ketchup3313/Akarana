@@ -4,6 +4,7 @@ const config = require('../config')
 
 module.exports = (req, res) => {
   console.log("1");
+  console.log(req);
   const sql = 'SELECT * FROM member WHERE username=?'
   query(sql, req.body.username, (result) => {
     console.log("2");
