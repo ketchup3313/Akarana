@@ -16,7 +16,7 @@ module.exports = {
           target: "https://akarana-backend.onrender.com",//代理的api地址，就是要跨域的地址
           changeOrigin: true,// 这个参数可以让target参数是域名
           ws: true,//是否启用websockets，用不到可设为false
-          pathRewrite:{["^/api"]: ""}
+          pathRewrite:{"^/api": ""}
         },
       },
     },
