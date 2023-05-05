@@ -3,9 +3,12 @@ const {query} = require('../db')
 const config = require('../config')
 
 module.exports = (req, res) => {
+  console.log("1");
   const sql = 'SELECT * FROM member WHERE username=?'
   query(sql, req.body.username, (result) => {
+    console.log("2");
     if (result.length !== 1) {
+      console.log("3");
       return res.send({
         status: 1,
         msg: 'Username error,Can\'t login? Please contact mentortoc@gmail.com',
