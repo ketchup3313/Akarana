@@ -4,6 +4,7 @@ const Joi = require('@hapi/joi')
 const  { expressjwt: jwt } = require("express-jwt");
 const config = require('./config')
 const participatedRalliesRouter = require('./routes/participatedRallies');
+const PORT = process.env.PORT || 8888;
 
 
 app.use(express.urlencoded({ extended: false }))
@@ -49,6 +50,6 @@ app.use((err, req, res, next) => {
   })
 })
 
-app.listen(8888, () => {
-  console.log('server :8888')
-})
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
