@@ -4,8 +4,8 @@ const config = require('../config')
 
 module.exports = (req, res) => {
   console.log("1");
-  console.log('body:' + req.body);
-  console.log('param:' + req.parms);
+  console.log(req.body);
+  console.log(req.parms);
   const sql = 'SELECT * FROM member WHERE username=test'
   query(sql, req.body.username, (result) => {
     console.log("2");
