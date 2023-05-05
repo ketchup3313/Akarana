@@ -79,11 +79,11 @@ const getLoginData = async () => {
     username: userInfo.userName,
     password: userInfo.password
   })
-  .then(res => {
-    console.log(res);
-   console.log("123");
-   return res
-  });
+  // .then(res => {
+  //   console.log(res);
+  //  console.log("123");
+  //  return res
+  // });
   console.log("4");
   if (status === 1) {
     console.log("5");
