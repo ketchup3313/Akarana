@@ -122,43 +122,36 @@
     },
  
     async created() {
-  let { id } = this.$route.query;
-  const loadingInstance = ElLoading.service({
-    lock: true,
-    text: "Loading",
-    background: "rgba(0, 0, 0, 0.7)",
-  });
-  try {
-    const participantsRes = await http.get(`/api/rally/queryParticipants?rallyid=${id}`);
-    let { data, status } = participantsRes.data;
-    if (status === 0) {
-      this.participants = data;
+    let { id } = this.$route.query;
+    const loadingInstance = ElLoading.service({
+      lock: true,
+      text: "Loading",
+      background: "rgba(0, 0, 0, 0.7)",
+    });
+
+    try {
+      const [participantsRes, detailsRes] = await Promise.all([
+        http.get(`/api/rally/queryParticipants?rallyid=${id}`),
+        http.get(`/api/rally/queryInfo?id=${id}`),
+      ]);
+
+      // Handle participantsRes
+      let { data: participantsData, status: participantsStatus } = participantsRes.data;
+      if (participantsStatus === 0) {
+        this.participants = participantsData;
+      }
+
+      // Handle detailsRes
+      let { data: detailsData, status: detailsStatus } = detailsRes.data;
+      if (detailsStatus === 0) {
+        this.details = detailsData;
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      loadingInstance.close(); //close draw
     }
-  } catch (error) {
-    console.error(error);
-  }
-  // bulletin
-  try {
-    const bulletin = await http.get(`/api/rally/queryInfo?rallyid=${id}`);
-    let { data, status } = participantsRes.data;
-    if (status === 0) {
-      this.participants = data;
-    }
-  } catch (error) {
-    console.error(error);
-  }
-  try {
-    const res = await http.get(`/api/rally/queryInfo?id=${id}`);
-    let { data, status } = res.data;
-    console.log(status);
-    if (status === 0) {
-      this.details = data;
-      console.log(this.details);
-    }
-  } finally {
-    loadingInstance.close(); //close draw
-  }
-},
+  },
 
 
 
