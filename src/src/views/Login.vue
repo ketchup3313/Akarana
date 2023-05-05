@@ -81,7 +81,12 @@ const getLoginData = async () => {
     
     username: userInfo.userName,
     password: userInfo.password
-  });
+  })
+  .then(res => {
+    console.log(res);
+   console.log("123");
+  })
+  ;
   console.log("4");
   if (status === 1) {
     console.log("5");
@@ -91,8 +96,9 @@ const getLoginData = async () => {
     });
     return;
   }
-
+  console.log("5.5");
   if (status === 0) {
+    console.log("6");
     ElMessage({
       message: "Welcome back, " + userInfo.userName,
      
