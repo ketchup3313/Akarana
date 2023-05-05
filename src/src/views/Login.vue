@@ -66,7 +66,6 @@ const rules = {
 console.log("1");
 const onLogin = () => {
   console.log("2");
-  
   ref_form.value.validate((val) => {
     if (val) {
       getLoginData();
@@ -76,17 +75,15 @@ const onLogin = () => {
 // 获取登录数据
 const getLoginData = async () => {
   console.log("3");
-
   const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login', {
-    
     username: userInfo.userName,
     password: userInfo.password
   })
   .then(res => {
     console.log(res);
    console.log("123");
-  })
-  ;
+   return res
+  });
   console.log("4");
   if (status === 1) {
     console.log("5");
