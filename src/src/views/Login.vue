@@ -77,7 +77,7 @@ const onLogin = () => {
 const getLoginData = async () => {
   console.log("3");
 
-  const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login/', {
+  const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login', {
     
     username: userInfo.userName,
     password: userInfo.password
