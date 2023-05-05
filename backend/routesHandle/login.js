@@ -9,6 +9,7 @@ module.exports = (req, res) => {
   const sql = 'SELECT * FROM member WHERE username= "test"'
   query(sql, req.body.username, (result) => {
     console.log("2");
+    console.log(req.body.username);
     if (result.length !== 1) {
       console.log("3");
       return res.send({
