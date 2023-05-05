@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const app = express()
 const Joi = require('@hapi/joi')
@@ -22,8 +23,7 @@ app.use('/api/members', require('./routes/members'))
 app.use('/api/rally', require('./routes/rally'))
 app.use('/api/photo', require('./routes/photo'))
 app.use('/api/avatar', require('./routes/avatar')); 
-// env
-require('dotenv').config();
+
 
 
 app.use('/api/participatedRallies', participatedRalliesRouter);
