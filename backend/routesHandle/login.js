@@ -6,7 +6,7 @@ module.exports = (req, res) => {
   console.log("1");
   console.log(req.body);
   console.log(req.parms);
-  const sql = 'SELECT * FROM member WHERE username=test'
+  const sql = 'SELECT * FROM member WHERE username= "test"'
   query(sql, req.body.username, (result) => {
     console.log("2");
     if (result.length !== 1) {
