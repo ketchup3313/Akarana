@@ -1,21 +1,26 @@
-require('dotenv').config();
 const express = require('express')
 const app = express()
 const Joi = require('@hapi/joi')
 const  { expressjwt: jwt } = require("express-jwt");
 const config = require('./config')
 const participatedRalliesRouter = require('./routes/participatedRallies');
-const PORT = process.env.PORT || 8888;
+const port = process.env.PORT || 8888;
+
+
 
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 app.use(
-  jwt({ secret: config.jwtKey, algorithms: ['HS256'] }).unless({
+  jwt({
+    secret: config.jwtKey,
+    algorithms: ['HS256'],
+    credentialsRequired: false
+  }).unless({
     path: ['/api/login', '/api/reg'],
   })
-)
+);
 
 app.use('/api/login', require('./routes/login'))
 app.use('/api/mine', require('./routes/mine'))
@@ -23,7 +28,6 @@ app.use('/api/members', require('./routes/members'))
 app.use('/api/rally', require('./routes/rally'))
 app.use('/api/photo', require('./routes/photo'))
 app.use('/api/avatar', require('./routes/avatar')); 
-
 
 
 app.use('/api/participatedRallies', participatedRalliesRouter);
@@ -50,6 +54,6 @@ app.use((err, req, res, next) => {
   })
 })
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
