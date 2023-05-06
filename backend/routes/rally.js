@@ -4,7 +4,6 @@ const {queryList,queryInfo,requestJoin,queryParticipants} = require('../routesHa
 
 router.get('/',queryList)
 router.get('/queryInfo',queryInfo)
-
 router.post('/requestJoin',requestJoin)
 router.get('/queryParticipants', queryParticipants);
 

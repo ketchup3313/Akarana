@@ -85,7 +85,6 @@
               id="address"
               v-model="editedUserInfo.address"
               type="text"
-              @input="handleAddressChange"
             />
           </p>
         </div>
@@ -104,21 +103,6 @@
       format="YYYY-MM-DD"
     ></el-date-picker>
           </p>
-<!-- occ -->
-          <div>
-          <p class="bold-text">occupation:</p>
-          <p v-if="btnState">{{ userInfo.occupation}}</p>
-          <p v-else>
-            <input
-              id="occupation"
-              v-model="editedUserInfo.occupation"
-              type="text"
-            />
-          </p>
-        </div>
-
-
-
         </div>
         <button v-if="btnState" @click="btnState = false">Edit</button>
         <button v-else :disabled="emailError !== ''" @click="save">Save</button>
@@ -150,7 +134,6 @@ export default {
         emailAddress: "",
         birthday: "",
         gravatarEmail: "",
-        occupation: "",
       },
     };
   },
@@ -172,9 +155,6 @@ export default {
     GoogleAutocomplete,
   },
   methods: {
-    handleAddressChange(event) {
-    this.editedUserInfo.address = event.target.value;
-  },
     validateEmail() {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(this.editedUserInfo.emailAddress)) {

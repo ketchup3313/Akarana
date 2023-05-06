@@ -4,7 +4,6 @@
     type="text"
     placeholder="Enter address..."
     v-model="search"
-    @input="$emit('input', $event)"
   />
 </template>
 

@@ -63,9 +63,8 @@ const rules = {
   ],
 };
 // 登录的方法
-console.log("1");
+
 const onLogin = () => {
-  console.log("2");
   ref_form.value.validate((val) => {
     if (val) {
       getLoginData();
@@ -74,28 +73,21 @@ const onLogin = () => {
 };
 // 获取登录数据
 const getLoginData = async () => {
-  console.log("3");
+
   const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login', {
     username: userInfo.userName,
     password: userInfo.password
-  })
-  // .then(res => {
-  //   console.log(res);
-  //  console.log("123");
-  //  return res
-  // });
-  console.log("4");
+  });
+
   if (status === 1) {
-    console.log("5");
     ElMessage({
       message: `${msg}`,
-      type: "errr",
+      type: "error",
     });
     return;
   }
-  console.log("5.5");
+
   if (status === 0) {
-    console.log("6");
     ElMessage({
       message: "Welcome back, " + userInfo.userName,
      
@@ -129,8 +121,8 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener("mousemove", bgMoveHandler);
-    
 });
+
 </script>
 
 <style lang="less" scoped>
@@ -171,7 +163,7 @@ onUnmounted(() => {
     transition: all 1s;
     min-height: 273px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #fff;
     border-radius: 10px;
     padding: 20px;
 
@@ -213,10 +205,6 @@ onUnmounted(() => {
         padding: 0 10px;
       }
     }
-  }
-  .login{
-    background-image: url("../../public/png.jpeg");
-    
   }
 }
 </style>

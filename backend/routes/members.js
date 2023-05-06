@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { queryList, queryCouples } = require('../routesHandle/members')
+const {queryList} = require('../routesHandle/members')
 
-router.get('/', queryList)
-router.get('/couples', queryCouples)
+router.get('/',queryList)
 module.exports = router
