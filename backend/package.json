@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "cors": "^2.8.5",
     "ali-oss": "^6.17.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
