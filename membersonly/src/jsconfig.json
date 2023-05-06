@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
+<<<<<<< HEAD
     "baseUrl": "https://akarana-backend.onrender.com",
+=======
+    "baseUrl": "./",
+>>>>>>> parent of c9429052 (delete)
     "moduleResolution": "node",
     "paths": {
       "@/*": [
@@ -15,6 +19,10 @@
       "dom.iterable",
       "scripthost"
     ],
+<<<<<<< HEAD
     "jsx" :"preserve"
+=======
+    "jsx": "preserve"
+>>>>>>> parent of c9429052 (delete)
   }
 }
