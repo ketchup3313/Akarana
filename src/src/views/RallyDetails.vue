@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
-    <div class="container">
+    <div  class="container">
       <div v-if="JSON.stringify(details) !== '{}'">
         <header class="header_my">
           <h2>{{ details.mainTitle }}</h2>
@@ -19,7 +19,7 @@
           <span v-else>Group is close</span>
           <!-- <button @click="requestJoin(details.id)" class="btn">Request to join</button> -->
           <!-- <button @click="requestJoin(details.id)" class="btn" :disabled="details.status === 'close'">Request to
-              join</button> -->
+            join</button> -->
           <button @click="requestJoin(details.id)" class="btn" :class="{ 'btn-disabled': details.status === 'close' }"
             :disabled="details.status === 'close'">
             {{ details.status === 'open' ? 'Request to join' : 'This activity is closed' }}
@@ -27,7 +27,7 @@
         </section>
         <section class="small">
           <div class="small_item">
-            <h3>
+            <h3 class="bulletintext">
               Time
             </h3>
             <p>
@@ -35,47 +35,70 @@
             </p>
           </div>
           <div class="small_item">
-            <h3>
+            <h3 class="bulletintext">
               Address
             </h3>
             <p>
               {{ details.address }}
-            <div v-html="details.mapUrl"></div>
+
+            
+              <div v-html="details.mapUrl"></div>
             </p>
             <div class="participants-section">
-              <h3>Who want to join:</h3>
-              <ul>
-                <li v-for="(participant, index) in participants" :key="index">
-                  {{ participant.username }}
-                </li>
-              </ul>
-              <p v-if="participants.length === 0">
-                There are no participants for this rally yet.
-              </p>
-            </div>
-            <!-- 改成英文的，增加谁参加了这个活动， -->
-
+  <h3>Who want to join:</h3>
+  <ul>
+    <li v-for="(participant, index) in participants" :key="index">
+      {{ participant.username }}
+    </li>
+  </ul>
+  <p v-if="participants.length === 0">
+    There are no participants for this rally yet.
+  </p>
+  <h3 class="bulletintext">Bulletin:</h3>
+ 
+              <div class="download-pdf-button" >
+<button @click="previewPdf" class="btn download-pdf-btn">Download PDF</button>
+</div>
+  
+</div>
+<!-- 改成英文的，增加谁参加了这个活动， -->
+            
           </div>
         </section>
       </div>
-
+     
     </div>
   </div>
 </template>
-  
+
 <script>
 import http from '@/utils/request'
 import { ElLoading } from 'element-plus';
 
 export default {
+  
   data() {
     return {
       details: {},
       participants: [],
-
+      bulletin: [],
+      urlWithTimestamp:[]
     }
   },
   methods: {
+    previewPdf() {
+  if (this.details.bulletin) {
+    const timestamp = new Date().getTime();
+  const urlWithTimestamp = `${this.details.bulletin}?t=${timestamp}`;
+  console.log(urlWithTimestamp);
+    window.open(urlWithTimestamp);
+  } else {
+    ElMessage({
+      message: "No PDF available.",
+      type: "warning",
+    });
+  }
+},
     async requestJoin(rallyid) {
       let res = await http.post('/api/rally/requestJoin', {
         userid: this.$store.state.userInfo.id,
@@ -97,40 +120,44 @@ export default {
       }
     },
   },
+
   async created() {
-    let { id } = this.$route.query;
-    const loadingInstance = ElLoading.service({
-      lock: true,
-      text: "Loading",
-      background: "rgba(0, 0, 0, 0.7)",
-    });
-    try {
-      const participantsRes = await http.get(`/api/rally/queryParticipants?rallyid=${id}`);
-      let { data, status } = participantsRes.data;
-      if (status === 0) {
-        this.participants = data;
-      }
-    } catch (error) {
-      console.error(error);
+  let { id } = this.$route.query;
+  const loadingInstance = ElLoading.service({
+    lock: true,
+    text: "Loading",
+    background: "rgba(0, 0, 0, 0.7)",
+  });
+
+  try {
+    const [participantsRes, detailsRes] = await Promise.all([
+      http.get(`/api/rally/queryParticipants?rallyid=${id}`),
+      http.get(`/api/rally/queryInfo?id=${id}`),
+    ]);
+
+    // Handle participantsRes
+    let { data: participantsData, status: participantsStatus } = participantsRes.data;
+    if (participantsStatus === 0) {
+      this.participants = participantsData;
     }
 
-    try {
-      const res = await http.get(`/api/rally/queryInfo?id=${id}`);
-      let { data, status } = res.data;
-      console.log(status);
-      if (status === 0) {
-        this.details = data;
-        console.log(this.details);
-      }
-    } finally {
-      loadingInstance.close(); //close draw
+    // Handle detailsRes
+    let { data: detailsData, status: detailsStatus } = detailsRes.data;
+    if (detailsStatus === 0) {
+      this.details = detailsData;
     }
-  },
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loadingInstance.close(); //close draw
+  }
+},
+
 
 
 }
 </script>
-  
+
 <style  scoped>
 * {
   margin: 0;
@@ -160,7 +187,8 @@ export default {
   padding: 10px 20px;
   letter-spacing: 2px;
   border-radius: 30px;
-  background-image: linear-gradient(90deg, rgb(149, 223, 236), rgb(138, 226, 138));
+  background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);;
+  border: none;
 }
 
 .btn-disabled {
@@ -195,5 +223,8 @@ export default {
 
 .container {
   padding: 20px 20%;
+}
+.bulletintext{
+  margin-top: 30px;
 }
 </style>
