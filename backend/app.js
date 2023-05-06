@@ -4,22 +4,18 @@ const Joi = require('@hapi/joi')
 const  { expressjwt: jwt } = require("express-jwt");
 const config = require('./config')
 const participatedRalliesRouter = require('./routes/participatedRallies');
-const port = process.env.PORT || 8888;
-const cors = require('cors');
+const cors = require('cors')
 
-app.use(cors());
+
+app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 app.use(
-  jwt({
-    secret: config.jwtKey,
-    algorithms: ['HS256'],
-    credentialsRequired: false
-  }).unless({
+  jwt({ secret: config.jwtKey, algorithms: ['HS256'] }).unless({
     path: ['/api/login', '/api/reg'],
   })
-);
+)
 
 app.use('/api/login', require('./routes/login'))
 app.use('/api/mine', require('./routes/mine'))
@@ -53,6 +49,6 @@ app.use((err, req, res, next) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+app.listen(8888, () => {
+  console.log('server :8888')
+})

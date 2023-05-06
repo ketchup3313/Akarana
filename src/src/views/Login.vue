@@ -171,7 +171,7 @@ onUnmounted(() => {
     transition: all 1s;
     min-height: 273px;
     text-align: center;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     padding: 20px;
 
@@ -213,6 +213,10 @@ onUnmounted(() => {
         padding: 0 10px;
       }
     }
+  }
+  .login{
+    background-image: url("../../public/png.jpeg");
+    
   }
 }
 </style>

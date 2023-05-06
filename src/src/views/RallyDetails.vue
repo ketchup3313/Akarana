@@ -187,7 +187,8 @@
     padding: 10px 20px;
     letter-spacing: 2px;
     border-radius: 30px;
-    background-image: linear-gradient(90deg, rgb(149, 223, 236), rgb(138, 226, 138));
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);;
+    border: none;
   }
   
   .btn-disabled {

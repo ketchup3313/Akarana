@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './common/base.css'
+
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import store from './store'
 import router from './router'
@@ -11,7 +11,7 @@ import VueGoogleMap from 'vue3-google-map';
 import 'element-plus/dist/index.css'
 // 引入自己的
 // import '../theme/index.css'
-import '../src/variables.scss';
+
 const app = createApp(App);
 const el = document.documentElement
 getComputedStyle(el).getPropertyValue(`--el-color-primary`)

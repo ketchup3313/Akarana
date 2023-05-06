@@ -40,6 +40,11 @@
           <h3 style="margin-top: 20px;">Birthday</h3>
           <p>{{ details.birthday ? details.birthday : tip }}</p>
         </div>
+        <div class="small_item">
+          <h3 style="margin-top: 20px;">Occupation</h3>
+          <p>{{ details.occupation ? details.occupation : tip }}</p>
+        </div>
+      
       
 <!-- couples -->
 <div class="small_item">
@@ -78,77 +83,81 @@
   </div>
 </template>
   
-<script >
-import http from '@/utils/request'
-import { ElLoading } from 'element-plus';
-import { watch } from 'vue';
+<script>
+import http from "@/utils/request";
+import { ElLoading } from "element-plus";
+import { watch } from "vue"; // 引入 watch
 
 export default {
   data() {
     return {
       details: {},
-      tip: 'Do not have this information',
+      tip: "Do not have this information",
       participatedRallies: [],
-      avatarUrl: '',
-      couples:[]
-
-    }
+      avatarUrl: "",
+      couples: [],
+    };
   },
   methods: {
     userInfo(id) {
-    this.$router.push({
-      path: "/MembersDetails",
-      query: {
-        id,
-      },
-    });
-  },
+      this.$router.push({
+        path: "/MembersDetails",
+        query: {
+          id,
+        },
+      });
+    },
+    fetchData() { // 创建一个新的方法 fetchData
+      let { id } = this.$route.query;
+      const loadingInstance = ElLoading.service({
+        lock: true,
+        text: "Loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+
+      // 将原来在 created() 方法中的代码移至这里
+      http.get(`/api/mine/queryInfo?id=${id}`).then((res) => {
+        let { data, status } = res.data;
+        console.log(status);
+        if (status === 0) {
+          this.details = data;
+          this.avatarUrl = this.details.avatar || "http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg";
+          console.log(this.details);
+
+          http.get(`/api/members/couples?couples=${this.details.couples}`).then((res) => {
+            let { data, status } = res.data;
+            if (status === 0) {
+              this.couples = data
+                .filter((user) => user.id !== this.details.id)
+                .map((user) => ({
+                  id: user.id,
+                  name: `${user.firstName} ${user.lastName}`,
+                  avatar: user.avatar || "http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg",
+                }));
+            }
+          });
+        }
+        loadingInstance.close(); // 关闭加载动画
+      });
+
+      // 获取用户参加过的 rally
+      http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
+        let { data, status } = res.data;
+        if (status === 0) {
+          this.participatedRallies = data;
+        }
+      });
+    },
   },
   created() {
-  let { id } = this.$route.query;
-  const loadingInstance = ElLoading.service({
-    lock: true,
-    text: "Loading",
-    background: "rgba(0, 0, 0, 0.7)",
-  });
-
-  http.get(`/api/mine/queryInfo?id=${id}`).then(res => {
-    let { data, status } = res.data;
-    console.log(status);
-    if (status === 0) {
-      this.details = data;
-      this.avatarUrl = this.details.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg';
-      console.log(this.details);
-
-      
-// 获取具有相同 "couples" 值的其他用户
-http.get(`/api/members/couples?couples=${this.details.couples}`).then(res => {
-  let { data, status } = res.data;
-  if (status === 0) {
-    this.couples = data.filter(user => user.id !== this.details.id)
-                       .map(user => ({
-                         id: user.id,
-                         name: `${user.firstName} ${user.lastName}`,
-                         avatar: user.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg'
-                       }));
-  }
-})
-
-
-    }
-    loadingInstance.close(); // 关闭加载动画
-  })
-
-  // 获取用户参加过的 rally
-  http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
-    let { data, status } = res.data;
-    if (status === 0) {
-      this.participatedRallies = data;
-    }
-  });
-}
-
-}
+    this.fetchData(); // 在 created() 生命周期钩子中调用 fetchData
+  },
+  watch: {
+    $route() {
+      this.fetchData(); // 当 $route 变化时，调用 fetchData
+    },
+  },
+};
 </script>
   
 <style scoped>
