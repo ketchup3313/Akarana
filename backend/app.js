@@ -5,10 +5,9 @@ const  { expressjwt: jwt } = require("express-jwt");
 const config = require('./config')
 const participatedRalliesRouter = require('./routes/participatedRallies');
 const port = process.env.PORT || 8888;
+const cors = require('cors');
 
-
-
-
+app.use(cors());
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
