@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "baseUrl": "./",
+    "baseUrl": "https://akarana-backend.onrender.com",
     "moduleResolution": "node",
     "paths": {
       "@/*": [
