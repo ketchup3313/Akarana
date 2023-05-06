@@ -40,28 +40,6 @@
           <h3 style="margin-top: 20px;">Birthday</h3>
           <p>{{ details.birthday ? details.birthday : tip }}</p>
         </div>
-        <div class="small_item">
-          <h3 style="margin-top: 20px;">Occupation</h3>
-          <p>{{ details.occupation ? details.occupation : tip }}</p>
-        </div>
-      
-      
-<!-- couples -->
-<div class="small_item">
-  <h3 style="margin-top: 20px">Couples:</h3>
-  <div v-if="couples.length">
-    <div v-for="(couple, index) in couples" :key="index" class="couple-item">
-      <img :src="couple.avatar" alt="用户头像" class="user-avatar" />
-      <a @click="userInfo(couple.id)" class="couple-name">{{ couple.name }}</a>
-    </div>
-  </div>
-  <div v-else>
-    <p>No couples found</p>
-  </div>
-</div>
-
-
-
         <!-- Add a section for participated rallies -->
 <div class="small_item">
 <h3 style="margin-top: 20px;">Participated Rallies</h3>
@@ -83,81 +61,51 @@
   </div>
 </template>
   
-<script>
-import http from "@/utils/request";
-import { ElLoading } from "element-plus";
-import { watch } from "vue"; // 引入 watch
+<script >
+import http from '@/utils/request'
+import { ElLoading } from 'element-plus';
 
 export default {
   data() {
     return {
       details: {},
-      tip: "Do not have this information",
+      tip: 'Do not have this information',
       participatedRallies: [],
-      avatarUrl: "",
-      couples: [],
-    };
+      avatarUrl: ''
+
+    }
   },
   methods: {
-    userInfo(id) {
-      this.$router.push({
-        path: "/MembersDetails",
-        query: {
-          id,
-        },
-      });
-    },
-    fetchData() { // 创建一个新的方法 fetchData
-      let { id } = this.$route.query;
-      const loadingInstance = ElLoading.service({
-        lock: true,
-        text: "Loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
 
-      // 将原来在 created() 方法中的代码移至这里
-      http.get(`/api/mine/queryInfo?id=${id}`).then((res) => {
-        let { data, status } = res.data;
-        console.log(status);
-        if (status === 0) {
-          this.details = data;
-          this.avatarUrl = this.details.avatar || "http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg";
-          console.log(this.details);
-
-          http.get(`/api/members/couples?couples=${this.details.couples}`).then((res) => {
-            let { data, status } = res.data;
-            if (status === 0) {
-              this.couples = data
-                .filter((user) => user.id !== this.details.id)
-                .map((user) => ({
-                  id: user.id,
-                  name: `${user.firstName} ${user.lastName}`,
-                  avatar: user.avatar || "http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg",
-                }));
-            }
-          });
-        }
-        loadingInstance.close(); // 关闭加载动画
-      });
-
-      // 获取用户参加过的 rally
-      http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
-        let { data, status } = res.data;
-        if (status === 0) {
-          this.participatedRallies = data;
-        }
-      });
-    },
   },
   created() {
-    this.fetchData(); // 在 created() 生命周期钩子中调用 fetchData
+    let { id } = this.$route.query;
+    const loadingInstance = ElLoading.service({
+    lock: true,
+    text: "Loading",
+    background: "rgba(0, 0, 0, 0.7)",
+});
+
+    http.get(`/api/mine/queryInfo?id=${id}`).then(res => {
+      let { data, status } = res.data;
+      console.log(status);
+      if (status === 0) {
+        this.details = data;
+        this.avatarUrl = this.details.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/car1.jpg';
+        console.log(this.details);
+        
+      }
+      loadingInstance.close(); // 关闭加载动画
+    })
+    // 获取用户参加过的 rally
+http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
+  let { data, status } = res.data;
+  if (status === 0) {
+    this.participatedRallies = data;
+  }
+});
   },
-  watch: {
-    $route() {
-      this.fetchData(); // 当 $route 变化时，调用 fetchData
-    },
-  },
-};
+}
 </script>
   
 <style scoped>
@@ -262,16 +210,4 @@ body {
   transform: scale(1.05);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
-.couple-item {
-  display: flex;
-  align-items: center;
-
-}
-
-.couple-item .user-avatar {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
-
 </style>
