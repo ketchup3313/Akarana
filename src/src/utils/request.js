@@ -6,7 +6,7 @@ import router from "../router/index";
 // 创建axios实例  
 const service = axios.create({
   timeout: 15000, // 请求超时时间
-  // baseURL: "https://akarana-backend.onrender.com"
+  baseURL: "https://akarana-backend.onrender.com"
 });
 service.interceptors.request.use((config) => {
   const passURL = ['/api/login', '/api/reg']

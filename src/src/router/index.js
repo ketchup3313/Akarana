@@ -32,9 +32,6 @@ const router = createRouter({
       component: () => import("../views/Login.vue"),
     },
     {
-      path: "/NewsLetter",
-      component: () => import("../views/NewsLetter.vue"),
-    },{
       path: "/Photo",
       component: () => import("../views/Photo.vue"),
     },

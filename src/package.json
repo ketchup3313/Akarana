@@ -6,6 +6,7 @@
     "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
+    
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
