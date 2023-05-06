@@ -1,22 +1,30 @@
-const express = require('express')
-const app = express()
-const Joi = require('@hapi/joi')
-const  { expressjwt: jwt } = require("express-jwt");
-const config = require('./config')
+const express = require('express');
+const app = express();
+const Joi = require('@hapi/joi');
+const { expressjwt: jwt } = require('express-jwt');
+const config = require('./config');
 const participatedRalliesRouter = require('./routes/participatedRallies');
 const port = process.env.PORT || 8888;
-const cors = require('cors');
+// const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-
-app.use(cors());
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
+app.use(express.static(__dirname + '/'));
+app.use(
+  '/api',
+  createProxyMiddleware({
+    target: 'https://akarana-backend.onrender.com',
+    changeOrigin: false,
+  })
+);
+// app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(
   jwt({
     secret: config.jwtKey,
     algorithms: ['HS256'],
-    credentialsRequired: false
+    credentialsRequired: false,
   }).unless({
     path: ['/api/login', '/api/reg'],
   })
