@@ -15,7 +15,7 @@ const queryPromise = (sql, params) => {
 const getAvatar = async (req, res) => {
   const { username } = req.params;
 
-  // test
+  // test1
   const sql = 'SELECT avatar FROM member WHERE username=?';
 
   try {
