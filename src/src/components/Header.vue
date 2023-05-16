@@ -13,17 +13,16 @@
 
     <el-dropdown size="large">
       <span class="el-dropdown-link">
-        <el-icon><Menu /></el-icon>&nbsp; Activity
+        <el-icon><Menu /></el-icon>&nbsp; Acitivity
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item @click="Rally"><el-icon><StarFilled /></el-icon>All activitys</el-dropdown-item>
+          <el-dropdown-item @click="Rally"><el-icon><StarFilled /></el-icon>All rallies</el-dropdown-item>
           <el-dropdown-item @click="Photo"><el-icon><Picture /></el-icon>Photo</el-dropdown-item>
           <el-dropdown-item @click="calendar"><el-icon><Calendar /></el-icon>Calendar</el-dropdown-item>
-
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -70,12 +69,19 @@
    
           <el-dropdown-item @click="openwebiste"><el-icon><Promotion /></el-icon> Our website</el-dropdown-item>
           <el-dropdown-item @click="opendocument"> <el-icon><Document /></el-icon> About this members only website</el-dropdown-item>
-          
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+   
+<el-dropdown size="large" disabled>
+      <span class="el-dropdown-link" @click="logout" >
+        <el-icon><CircleCloseFilled /></el-icon> &nbsp;Log out
+        
+      </span>
+      <template #dropdown>
+      </template>
+    </el-dropdown>
 
-    <span class="username"> </span>
 
     <div
       class="user"

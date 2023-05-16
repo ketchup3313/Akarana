@@ -16,7 +16,7 @@ const app = createApp(App);
 const el = document.documentElement
 getComputedStyle(el).getPropertyValue(`--el-color-primary`)
 el.style.setProperty('--el-color-primary', '#ff8936')
-getComputedStyle(el).getPropertyValue(`--el-color-primary`)
+
 
 
 app.use(store);

@@ -178,7 +178,7 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #1e90ff;
 }
 
 .editbut {

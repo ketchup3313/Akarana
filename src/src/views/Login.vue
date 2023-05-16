@@ -24,7 +24,7 @@
           </el-input>
         </el-form-item>
         <el-button type="primary" class="login_submit" @click="onLogin">Login</el-button>
-        <div class="login_register" @click="openPdf">Register form</div>
+        <div class="login_register" @click="openPdf">Click to get application form</div>
         <!-- <div class="test"></div> -->
       </el-form>
     </div>
@@ -71,12 +71,17 @@ const onLogin = () => {
     }
   });
 };
+
 // 获取登录数据
 const getLoginData = async () => {
 
   const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login', {
     username: userInfo.userName,
     password: userInfo.password
+  })
+  .then(res => {
+    console.log(res);
+    return res;
   });
 
   if (status === 1) {
@@ -188,9 +193,11 @@ onUnmounted(() => {
       }
 
       .login_register {
-        width: 6.25rem;
+      
         font-size: 0.875rem;
         margin: 0 auto;
+        text-decoration: underline;
+        text-decoration-color: orange
       }
       .test{
         // 字体变小

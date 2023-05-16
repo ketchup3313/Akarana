@@ -15,20 +15,20 @@
 
         </header>
         <section class="section_join">
-          <span v-if="details.status === 'open'">Group is open</span>
+          <span v-if="details.status === 'Upcoming'">Group is open</span>
           <span v-else>Group is close</span>
           <!-- <button @click="requestJoin(details.id)" class="btn">Request to join</button> -->
           <!-- <button @click="requestJoin(details.id)" class="btn" :disabled="details.status === 'close'">Request to
             join</button> -->
-          <button @click="requestJoin(details.id)" class="btn" :class="{ 'btn-disabled': details.status === 'close' }"
+          <button @click="requestJoin(details.id)" class="btn" :class="{ 'btn-disabled': details.status === 'Past' }"
             :disabled="details.status === 'close'">
-            {{ details.status === 'open' ? 'Request to join' : 'This activity is closed' }}
+            {{ details.status === 'Upcoming' ? 'Request to join' : 'This activity is closed' }}
           </button>
         </section>
         <section class="small">
           <div class="small_item">
             <h3 class="bulletintext">
-              Time
+              Date and Time
             </h3>
             <p>
               {{ details.time }}

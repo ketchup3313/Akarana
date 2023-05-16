@@ -5,6 +5,9 @@
       <el-container>
         <el-header>
         </el-header>
+        <div>If you wanna see more photo please click <a :href="albumLink" target="_blank" style="font-weight: bold; color: coral;">here</a></div>
+
+
         <el-main>
           <div class="photo-wall">
             <div v-for="(image, index) in dataList" :key="index" class="photo-wall__item">
@@ -30,7 +33,8 @@
       return {
         dataList: [],
     viewImageDialog: false,
-    currentImage: {}
+    currentImage: {},
+    albumLink: 'https://photos.app.goo.gl/zkBWUHcHntkFSaq67'
       }
     },
     created(){

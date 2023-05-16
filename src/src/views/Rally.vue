@@ -10,7 +10,7 @@
                       <p>{{ item.subTitle }}</p>
                   </div>
                   <div :class="['tab', item.status]">
-                      {{ item.status === 'open' ? 'open' : 'close' }}
+                      {{ item.status === 'Upcoming' ? 'Upcoming' : 'Past' }}
                   </div>
               </div>
           </div>
@@ -31,7 +31,7 @@ const router = useRouter();
 async function getList() {
 let { data, status } = (await http.get('/api/rally')).data;
 if (status === 1) {
-  data.sort((a, b) => (a.status === 'open' ? -1 : b.status === 'open' ? 1 : 0));
+  data.sort((a, b) => (a.status === 'Upcoming' ? -1 : b.status === 'Upcoming' ? 1 : 0));
 
   dataList.value = data;
 } else {
@@ -113,12 +113,12 @@ methods: {
   border-radius: 6px;
 }
 
-.open {
+.Upcoming {
   background-color: rgb(206, 243, 206);
   color: green;
 }
 
-.close {
+.Past {
   color: rgb(203, 61, 61);
   background-color: rgb(238, 194, 194);
 }
