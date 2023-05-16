@@ -1,11 +1,11 @@
 const mysql = require('mysql')
 
 const db = mysql.createPool({
-  host: '8.219.194.127',
-  user: 'root',
-  password: 'akarana',
-  database: 'akarana_admin',
-})
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
 const queryPromise = (sql, params) => {
   return new Promise((resolve, reject) => {
     db.query(sql, params, (error, result) => {

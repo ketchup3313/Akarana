@@ -15,7 +15,7 @@ const queryPromise = (sql, params) => {
 const getAvatar = async (req, res) => {
   const { username } = req.params;
 
-  // 查询用户头像
+  // test1
   const sql = 'SELECT avatar FROM member WHERE username=?';
 
   try {
