@@ -31,10 +31,7 @@ const router = createRouter({
       name:'login',
       component: () => import("../views/Login.vue"),
     },
-    {
-      path: "/NewsLetter",
-      component: () => import("../views/NewsLetter.vue"),
-    },{
+   {
       path: "/Photo",
       component: () => import("../views/Photo.vue"),
     },
@@ -42,10 +39,7 @@ const router = createRouter({
       path: "/profile",
       component: () => import("../views/Profile.vue"),
     },
-    {
-      path: "/test",
-      component: () => import("../views/test.vue"),
-    },
+   
     {
       path: "/edit",
       component: () => import("../views/Avatar.vue"),
@@ -82,7 +76,7 @@ router.beforeEach((to, from, next) => {
     }
     return;
   }
-  if(to.meta.isAuth){
+  if(to.path !== '/login'){
     if (localStorage.getItem("@#@TOKEN")) {
       next();
     } else {
@@ -93,4 +87,5 @@ router.beforeEach((to, from, next) => {
   }
   next();
 });
+
 export default router;

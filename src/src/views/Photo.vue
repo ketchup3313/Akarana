@@ -5,7 +5,7 @@
       <el-container>
         <el-header>
         </el-header>
-        <div>If you wanna see more photo please click <a :href="albumLink" target="_blank" style="font-weight: bold; color: coral;">here</a></div>
+        <div class="more">If you wanna see more photo please click <a :href="albumLink" target="_blank" style="font-weight: bold; color: coral;">here</a></div>
 
 
         <el-main>
@@ -98,6 +98,11 @@
   object-fit: contain;
   display: block;
   margin: 0 auto;
+}
+.more{
+  text-align: center;
+  font-size: 20px;
+  margin: 20px 0;
 }
 
   </style>

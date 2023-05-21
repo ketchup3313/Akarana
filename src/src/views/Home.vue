@@ -8,7 +8,7 @@
     
 
    
-        <img class="header-image" src="/homepage.png" >
+        <img class="header-image" src="../../public/WechatIMG1305.png" >
         <!-- <button @click="handerOne">3212</button>] -->
       </div>
 </template>

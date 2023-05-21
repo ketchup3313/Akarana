@@ -21,7 +21,7 @@ service.interceptors.request.use((config) => {
 
 service.interceptors.response.use((response) => {
   const { status, msg } = response.data
-  if (status === 1 && msg === 'TOKEN 解析错误') {
+  if (status === 1 && msg === 'Have not login !') {
     ElMessage({
       message: `${msg}`,
       type: "error",

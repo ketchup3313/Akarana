@@ -1,11 +1,7 @@
 <template>
   <div class="header">
     <div class="homeIcon">
-      <!-- <el-icon size="30px" @click="handleCollapse" :style="{ transform: isCollapse ? '' : 'rotate(180deg)' }">
-        <Expand />
-      </el-icon> -->
-      <!-- 点击跳转到/home -->
-
+     
       <el-link :underline="false" type="primary" href="/home">
         <span style="text-decoration: none"> <el-icon><HomeFilled /></el-icon>&nbsp;Home </span>
       </el-link>
@@ -13,7 +9,7 @@
 
     <el-dropdown size="large">
       <span class="el-dropdown-link">
-        <el-icon><Menu /></el-icon>&nbsp; Acitivity
+        <el-icon><Menu /></el-icon>&nbsp; Rallies
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
@@ -23,6 +19,7 @@
           <el-dropdown-item @click="Rally"><el-icon><StarFilled /></el-icon>All rallies</el-dropdown-item>
           <el-dropdown-item @click="Photo"><el-icon><Picture /></el-icon>Photo</el-dropdown-item>
           <el-dropdown-item @click="calendar"><el-icon><Calendar /></el-icon>Calendar</el-dropdown-item>
+          <el-dropdown-item @click="CAlPDF"><el-icon><Calendar /></el-icon>Calendar.pdf</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -127,7 +124,8 @@ export default {
       router.push("/NewsLetter");
     };
     const Photo = () => {
-      router.push("/Photo");
+      // 跳转到百度
+      window.open( "https://photos.app.goo.gl/c6zGfunJyCXDSULH7",'_blank');
     };
     const profile = () => {
       router.push("/profile");
@@ -140,6 +138,9 @@ export default {
     };
     const calendar = () => {
       router.push("/calendar");
+    };
+    const CAlPDF = () => {
+     window.open("https://drive.google.com/file/d/12r5Bp_5kPQuF2Oj1WpuYbI7JPAl7GbSz/view?usp=share_link","_blank");
     };
     const opendocument = () => {
       router.push("/document");
@@ -174,6 +175,7 @@ export default {
       Rally,
       calendar,
       opendocument,
+      CAlPDF,
     };
   },
   methods: {

@@ -40,7 +40,7 @@ let handerObj = {
   
   queryParticipants(req, res) {
     const rallyId = req.query.rallyid;
-    const sql = `SELECT username FROM participate WHERE rallyid=${rallyId}`;
+    const sql = `SELECT username, firstName FROM participate WHERE rallyid=${rallyId}`;
     try {
       query(sql, null, (result) => {
         res.send({
@@ -70,7 +70,8 @@ let handerObj = {
             insert('participate',req.body,(result)=>{
               res.send({
                 ...result,
-                msg:'Congratulations on your successful participation in the event!'
+                msg:'Congratulations on your successful participation in the event!',
+                firstName: req.body.firstName 
               })
             })
         }else{
