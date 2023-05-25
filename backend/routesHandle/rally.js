@@ -40,7 +40,7 @@ let handerObj = {
   
   queryParticipants(req, res) {
     const rallyId = req.query.rallyid;
-    const sql = `SELECT username, firstName FROM participate WHERE rallyid=${rallyId}`;
+    const sql = `SELECT username, firstName, lastName FROM participate WHERE rallyid=${rallyId}`;
     try {
       query(sql, null, (result) => {
         res.send({

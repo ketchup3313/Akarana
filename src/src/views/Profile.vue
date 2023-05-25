@@ -8,6 +8,7 @@
     <div v-if="userInfo" class="profile-content">
       <div class="change-avatar"></div>
       <div>
+        
         <p class="bold-text">Email Address:</p>
         <p v-if="btnState">{{ userInfo.emailAddress }}</p>
         <p v-else>
@@ -15,7 +16,8 @@
             id="emailAddress"
             v-model="editedUserInfo.emailAddress"
             type="text"
-            @input="updateGravatar"
+            
+         
             @blur="validateEmail"
             :class="{ error: emailError }"
           />
@@ -41,6 +43,7 @@
             id="lastName"
             v-model="editedUserInfo.lastName"
             type="text"
+           
           />
         </p>
       </div>
@@ -63,6 +66,7 @@
             id="username"
             v-model="editedUserInfo.username"
             type="text"
+            @input="updateGravatar"
           />
         </p>
       </div>
@@ -101,7 +105,8 @@
     v-model="editedUserInfo.birthday"
     type=“date”
     placeholder="Select Birthday"
-    format="YYYY-MM-DD"
+    format="DD-MM-YYYY"
+    disabled="true" 
   ></el-date-picker>
         </p>
 <!-- occ -->
@@ -121,7 +126,7 @@
 
       </div>
       <button v-if="btnState" @click="btnState = false">Edit</button>
-      <button v-else :disabled="emailError !== ''" @click="save">Save</button>
+      <button v-else :disabled="emailError !== ''" @click="save" >Save</button>
     </div>
   </div>
 </div>
@@ -176,13 +181,7 @@ methods: {
   this.editedUserInfo.address = event.target.value;
 },
   validateEmail() {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(this.editedUserInfo.emailAddress)) {
-      this.emailError = "Please enter a valid email address.";
-      console.log(this.emailError);
-    } else {
-      this.emailError = "";
-    }
+    
   },
   async save() {
     

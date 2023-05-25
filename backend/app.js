@@ -1,9 +1,12 @@
+require('dotenv').config();
+
 const express = require('express')
 const app = express()
 const Joi = require('@hapi/joi')
 const  { expressjwt: jwt } = require("express-jwt");
 const config = require('./config')
 const participatedRalliesRouter = require('./routes/participatedRallies');
+
 
 
 app.use(express.urlencoded({ extended: false }))

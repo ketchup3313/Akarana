@@ -141,7 +141,7 @@ export default {
 .user-list h3 {
   margin-bottom: 10px;
   display: inline-block;
-  width: 100%; // 设置宽度为100%
+  width: 100%; 
   padding: 5px 10px;
   background-color: #f5f5f5;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -149,7 +149,7 @@ export default {
 }
 
 .el-header {
-  //Header的样式
+
   padding: 0 0 0 0;
   background-color: #fff;
 }

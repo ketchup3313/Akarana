@@ -3,9 +3,6 @@
     <Header :handleCollapse="handleCollapse" :isCollapse="isCollapse" />
     <el-container>
       <el-container>
-     
-        
-    
         <el-main>
           <div class="calendar-title">Akarana Rally Calendar</div>
           <div class="calendar">
@@ -51,5 +48,7 @@ export default {
     font-size: 24px; /* 设置标题字体大小 */
     font-weight: bold; /* 设置标题字体加粗 */
     margin-bottom: 20px; /* 设置标题与日历之间的间距 */
+    
+
   }
 </style>

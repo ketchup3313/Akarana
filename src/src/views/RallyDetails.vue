@@ -5,6 +5,7 @@
       <div v-if="JSON.stringify(details) !== '{}'">
         <header class="header_my">
           <h2>{{ details.mainTitle }}</h2>
+          <h2 class="subtitle">{{ details.subTitle }}</h2>
           <p class="content clearfix">
             <img align="right" style="min-width: 500px; max-width:500px;" height="340" :src="details.image" alt="img"
               class="img">
@@ -62,7 +63,7 @@
             </h3>
             <ul>
               <li v-for="(participant, index) in participants" :key="index">
-                {{ participant.firstName}}
+                {{ participant.firstName}} {{ participant.lastName}}
               </li>
             </ul>
             <p  class = apple v-if="participants.length === 0">
@@ -127,6 +128,7 @@ export default {
         userid: this.$store.state.userInfo.id,
         firstname: this.$store.state.userInfo.firstName,
         username: this.$store.state.userInfo.username,
+        lastnAme: this.$store.state.userInfo.lastName,
         rallyid,
       })
       let { msg, status } = res.data;
@@ -282,5 +284,9 @@ export default {
 .album-link {
   text-decoration: underline;
   color:coral
+}
+.subtitle{
+  color: #747474;
+  font-size: 20px;
 }
 </style>
