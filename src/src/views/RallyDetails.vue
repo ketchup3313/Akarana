@@ -4,7 +4,7 @@
     <div class="container">
       <div v-if="JSON.stringify(details) !== '{}'">
         <header class="header_my">
-          <h2>{{ details.mainTitle }}</h2>
+          <h2>{{details.rallyID + ' '+details.mainTitle }}</h2>
           <h2 class="subtitle">{{ details.subTitle }}</h2>
           <p class="content clearfix">
             <img align="right" style="min-width: 500px; max-width:500px;" height="340" :src="details.image" alt="img"
@@ -96,7 +96,8 @@ export default {
       participants: [],
       bulletin: [],
       urlWithTimestamp:[],
-      album:[]
+      album:[],
+      rallyID: [],
     }
   },
   methods: {
@@ -254,6 +255,7 @@ export default {
 .content {
   letter-spacing: 1px;
   line-height: 40px;
+  white-space: pre-line;
 }
 
 .header_my {
