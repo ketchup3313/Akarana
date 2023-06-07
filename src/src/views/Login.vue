@@ -24,7 +24,9 @@
           </el-input>
         </el-form-item>
         <el-button type="primary" class="login_submit" @click="onLogin">Login</el-button>
-        <div class="login_register" @click="openPdf">Click to get application form</div>
+        <el-button class="login_register" @click="openPdf">Click to get a Member Application Form</el-button>
+
+        <el-button class="login_register" @click="openlink">Click to get a prospective members Application Form</el-button>
         <!-- <div class="test"></div> -->
       </el-form>
     </div>
@@ -40,9 +42,12 @@ import axios from 'axios'
 import { reactive, ref } from "vue";
 import { onMounted, onUnmounted } from "vue";
 const openPdf = () => {
-  const pdfPath = process.env.BASE_URL + 'applicationform.pdf';
-  window.open(pdfPath, '_blank');
+  
+  window.open('https://drive.google.com/file/d/1NDwhhIvs_teTG-G82wzQjsq7aFRua7l7/view?usp=share_link', '_blank');
 };
+const openlink =() =>{
+  window.open('https://drive.google.com/file/d/1sw4JAWIr6oyb1bG4-R1eR0iOCASufclG/view?usp=share_link', '_blank');
+}
 
 
 // 初始的ref
@@ -181,6 +186,7 @@ onUnmounted(() => {
 
     .el-card {
       border-radius: 20px;
+      
     }
 
     .login_form {
@@ -193,11 +199,12 @@ onUnmounted(() => {
       }
 
       .login_register {
-      
+        
         font-size: 0.875rem;
         margin: 0 auto;
-        text-decoration: underline;
-        text-decoration-color: orange
+       
+        text-decoration-color: orange;
+        margin-top: 10px;
       }
       .test{
         // 字体变小

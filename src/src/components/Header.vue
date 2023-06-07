@@ -140,7 +140,7 @@ export default {
       router.push("/calendar");
     };
     const CAlPDF = () => {
-     window.open("https://drive.google.com/file/d/12r5Bp_5kPQuF2Oj1WpuYbI7JPAl7GbSz/view?usp=share_link","_blank");
+     window.open("https://drive.google.com/file/d/1BQQdG05vxr2c1mFEM-VGMZf5_xfVruJq/view?usp=sharing","_blank");
     };
     const opendocument = () => {
       router.push("/document");
