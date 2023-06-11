@@ -85,9 +85,9 @@
       @mouseenter="isShowUserInfo('show')"
       @mouseleave="isShowUserInfo('leave')"
     >
-      <!-- 右上角头像 -->
+      <!-- Avatar -->
 
-      <img :src="gravatarUrl" alt="用户头像" class="user-avatar" />
+      <img :src="gravatarUrl" alt="User_Avatar" class="user-avatar" />
       <!-- <span>
         {{ userInfo.firstName }}
       </span> -->
@@ -109,9 +109,9 @@ import { mapState } from "vuex";
 import { calendarEmits } from "element-plus";
 export default {
   setup() {
-    // 获取父组件的函数
+    // get user info
     // const { isCollapse, handleCollapse } = defineProps(['isCollapse', 'handleCollapse'])
-    //// 鼠标移动个人信息展示
+    //// Mouse over personal information display
     let show = ref(false);
     const isShowUserInfo = (type) => {
       type === "show" ? (show.value = true) : (show.value = false);
@@ -124,7 +124,7 @@ export default {
       router.push("/NewsLetter");
     };
     const Photo = () => {
-      // 跳转到百度
+      // Jump to Baidu
       window.open( "https://photos.app.goo.gl/c6zGfunJyCXDSULH7",'_blank');
     };
     const profile = () => {
@@ -146,8 +146,7 @@ export default {
       router.push("/document");
     };
 
-    // // 获取用户信息
-
+    // // get user info
     // const userInfo = reactive({
     //   name: '',
     //   headImg: ''

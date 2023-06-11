@@ -15,7 +15,7 @@
                     <h3>{{ firstLetter }}</h3>
                     <ul>
                         <li @click="userInfo(user.id)" v-for="user in users" :key="user.name">
-                            <img :src="user.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/uploads/avatars/Yijun-1682600472281.jpeg'" alt="用户头像" class="user-avatar" />
+                            <img :src="user.avatar || 'http://akarana.oss-ap-southeast-1.aliyuncs.com/uploads/avatars/Yijun-1682600472281.jpeg'" alt="User_Avatar" class="user-avatar" />
                             <span class="user-name">{{ user.name }}</span>
                         </li>
                     </ul>
@@ -54,7 +54,7 @@ export default {
     };
   },
   methods: {
-    // 跳转到用户详情
+    // Jump to members details page
     userInfo(id) {
       this.$router.push({
         path: "/MembersDetails",
@@ -155,8 +155,8 @@ export default {
 }
 
 .user-avatar {
-  width: 70px; // 调整头像宽度
-  height: 70px; // 调整头像高度
+  width: 70px; 
+  height: 70px; 
   border-radius: 50%;
   margin-right: 10px;
 }

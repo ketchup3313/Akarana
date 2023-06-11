@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import http from '@/utils/request'
 
-// 创建一个新的 store 实例
+// create a new store instance.
 const store = createStore({
     state () {
       return {

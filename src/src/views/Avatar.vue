@@ -4,7 +4,7 @@
   <div class="user-profile">
     <h2 class="profile-title">Edit My Avatar</h2>
     <div v-if="userInfo" class="profile-content">
-      <img :src="file || gravatarUrl" alt="用户头像" class="user-avatar" />
+      <img :src="file || gravatarUrl" alt="User_Avatar" class="user-avatar" />
     </div>
     <div class="btn-box">
       <el-button type="primary" class="chooseAvg">

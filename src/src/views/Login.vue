@@ -50,15 +50,15 @@ const openlink =() =>{
 }
 
 
-// 初始的ref
+// Initial ref
 const ref_form = ref(null);
-// 表单的数据声明
+// Data declaration of the form
 const userInfo = reactive({
   userName: "",
   password: "",
 });
 
-// 表单数据校验规则
+// Form data validation rules
 const rules = {
   userName: [
     { required: "true", trigger: "blur", message: "Please input user name" },
@@ -67,7 +67,7 @@ const rules = {
     { required: "true", trigger: "blur", message: "Please input password" },
   ],
 };
-// 登录的方法
+// Login method
 
 const onLogin = () => {
   ref_form.value.validate((val) => {
@@ -77,7 +77,7 @@ const onLogin = () => {
   });
 };
 
-// 获取登录数据
+// get login data
 const getLoginData = async () => {
 
   const { data: { status, msg, token ,userInfo:myuserInfo} } = await http.post('/api/login', {
@@ -149,7 +149,6 @@ onUnmounted(() => {
 .login {
   height: 100%;
   height: 100%;
-  //图片
 
   background-image: url("../../public/png.jpeg");
   background-repeat: no-repeat;
@@ -207,9 +206,7 @@ onUnmounted(() => {
         margin-top: 10px;
       }
       .test{
-        // 字体变小
         font-size: 0.575rem;
-        // 字体颜色
         color: #999;
         margin-top: 10px;
 

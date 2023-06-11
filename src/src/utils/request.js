@@ -3,9 +3,9 @@ const ENV = process.env.NODE_ENV;
 import store from "@/store";
 import router from "../router/index";
 
-// 创建axios实例  
+// Create axios instance
 const service = axios.create({
-  timeout: 15000, // 请求超时时间
+  timeout: 15000, // request timeout
 });
 service.interceptors.request.use((config) => {
   const passURL = ['/api/login', '/api/reg']

@@ -4,7 +4,7 @@
 <div class="user-profile">
   <h2 class="profile-title">Personal Profile</h2>
   <div v-if="userInfo" class="profile-content">
-    <img :src="gravatarUrl" alt="用户头像" class="user-avatar" />
+    <img :src="gravatarUrl" alt="User_Avatar" class="user-avatar" />
     <div v-if="userInfo" class="profile-content">
       <div class="change-avatar"></div>
       <div>
@@ -63,11 +63,12 @@
         <p v-if="btnState">{{ userInfo.username }}</p>
         <p v-else>
           <input
-            id="username"
-            v-model="editedUserInfo.username"
-            type="text"
-            @input="updateGravatar"
-          />
+  id="username"
+  v-model="editedUserInfo.username"
+  type="text"
+  @input="updateGravatar"
+/>
+<p v-if="usernameError" class="error">{{ usernameError }}</p>
         </p>
       </div>
       <div>
@@ -136,6 +137,8 @@
 import { mapState } from "vuex";
 import CryptoJS from "crypto-js";
 import GoogleAutocomplete from "../components/GoogleAutocomplete.vue";
+import { ref } from 'vue';
+import http from '@/utils/request';
 
 export default {
 data() {
@@ -145,6 +148,7 @@ data() {
     showEditForm: false,
     isCollapse: false,
     handleCollapse: null,
+   
     editedUserInfo: {
       firstName: "",
       lastName: "",
@@ -156,6 +160,7 @@ data() {
       birthday: "",
       gravatarEmail: "",
       occupation: "",
+      
     },
   };
 },
@@ -176,6 +181,7 @@ computed: {
 components: {
   GoogleAutocomplete,
 },
+
 methods: {
   handleAddressChange(event) {
   this.editedUserInfo.address = event.target.value;
@@ -184,16 +190,24 @@ methods: {
     
   },
   async save() {
-    
     if (this.editedUserInfo.birthday instanceof Date) {
-  this.editedUserInfo.birthday = this.editedUserInfo.birthday.toLocaleDateString('en-CA');
-}
+    this.editedUserInfo.birthday = this.editedUserInfo.birthday.toLocaleDateString('en-CA');
+  }
+  
+  try {
     await this.$store.dispatch({
       type: "changeUserInfo",
       payload: this.editedUserInfo,
     });
     this.btnState = true;
     this.setEditedUserInfo();
+  } catch (error) {
+    if (error.message.includes('ER_DUP_ENTRY')) {
+      this.editedUserInfo.firstName = "DDD";
+    } else {
+      console.error(error);
+    }
+  }
   },
   setEditedUserInfo() {
     this.editedUserInfo = {

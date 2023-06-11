@@ -6,7 +6,7 @@
       <div v-if="JSON.stringify(details) !== '{}'">
         <!-- show user details -->
         <h1 style="font-size: 26px;">{{ details.firstName + ' ' + details.lastName }} </h1>
-        <img :src="avatarUrl" alt="用户头像" class="user-avatar" />
+        <img :src="avatarUrl" alt="User_Avatar" class="user-avatar" />
 
         <div class="small_item">
           <h3 style="margin-top: 20px;">FirstName</h3>
@@ -51,7 +51,7 @@
   <h3 style="margin-top: 20px">Couples:</h3>
   <div v-if="couples.length">
     <div v-for="(couple, index) in couples" :key="index" class="couple-item">
-      <img :src="couple.avatar" alt="用户头像" class="user-avatar" />
+      <img :src="couple.avatar" alt="User_Avatar" class="user-avatar" />
       <a @click="userInfo(couple.id)" class="couple-name">{{ couple.name }}</a>
     </div>
   </div>
@@ -115,7 +115,7 @@ export default {
         background: "rgba(0, 0, 0, 0.7)",
       });
 
-      // 将原来在 created() 方法中的代码移至这里
+    
       http.get(`/api/mine/queryInfo?id=${id}`).then((res) => {
         let { data, status } = res.data;
         console.log(status);
@@ -137,10 +137,10 @@ export default {
             }
           });
         }
-        loadingInstance.close(); // 关闭加载动画
+        loadingInstance.close(); // clode loading draw
       });
 
-      // 获取用户参加过的 rally
+      // get participated rallies
       http.get(`/api/participatedRallies/userRallies?userid=${id}`).then((res) => {
         let { data, status } = res.data;
         if (status === 0) {
@@ -150,11 +150,11 @@ export default {
     },
   },
   created() {
-    this.fetchData(); // 在 created() 生命周期钩子中调用 fetchData
+    this.fetchData(); //  Call fetchData in the created() lifecycle hook
   },
   watch: {
     $route() {
-      this.fetchData(); // 当 $route 变化时，调用 fetchData
+      this.fetchData(); // Call fetchData when $route changes
     },
   },
 };

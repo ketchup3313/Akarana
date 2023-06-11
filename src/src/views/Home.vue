@@ -82,7 +82,6 @@
 }
 
 .el-header {
-  //Header的样式
   padding: 0 0 0 0;
   background-color: #fff;
 }

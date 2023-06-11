@@ -60,24 +60,16 @@
   
   <style>
   .photo-wall {
-  /* 设置为网格布局容器 */
   display: grid;
-  /* 设置网格列，每列最小宽度为 300px，自动填充 */
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  /* 设置网格行高 */
   grid-auto-rows: 300px;
-  /* 设置网格间距 */
   grid-gap: 5px;
 }
   
   .photo-wall__item {
-  /* 设置盒子的盒模型 */
   box-sizing: border-box;
-  /* 设置为弹性盒子项目，让图片自动对齐 */
   display: flex;
-  /* 设置图片容器的填充 */
   padding: 30px;
-  /* 设置弹性盒子的伸缩比例 */
   flex: 1 1 25%;
 }
   

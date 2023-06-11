@@ -5,6 +5,8 @@ let handerObj = {
       return res.send(result)
     })
   },
+
+
   queryUserInfo(req, res) {
     const sql = `SELECT * FROM member WHERE id=${req.query.id}`
     try {
@@ -13,7 +15,7 @@ let handerObj = {
         if (result.length !== 1) {
           return res.send({
             status: 1,
-            msg: '该用户不存在',
+            msg: 'this username is not exist',
           })
         }
         res.send({

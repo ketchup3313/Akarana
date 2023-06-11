@@ -39,7 +39,32 @@ let handerObj = {
     
   },
 
- 
+  queryUsername(req, res) {
+    const { username } = req.query;
+    const sql = `SELECT * FROM member WHERE username = ?`;
+    try {
+      query(sql, [username], (result) => {
+        if (result.length > 0) {
+          // If the result set is not empty, the username is already in use
+          res.send({
+            status: 0,
+            msg: 'Username exists',
+          })
+        } else {
+          // If the result set is empty, the username is available
+          res.send({
+            status: 1,
+            msg: 'Username available',
+          })
+        }
+      })    
+    } catch (error) {
+      res.send({
+        status: 1,
+        msg: error.code,
+      })
+    }
+  },
     
 
 }

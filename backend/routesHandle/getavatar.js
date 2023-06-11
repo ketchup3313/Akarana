@@ -24,7 +24,7 @@ const getAvatar = async (req, res) => {
     if (result.length !== 1) {
       return res.status(400).json({
         status: 1,
-        msg: '该用户不存在',
+        msg: 'this username is not exist',
       });
     }
 
@@ -32,13 +32,13 @@ const getAvatar = async (req, res) => {
 
     res.status(200).json({
       status: 0,
-      msg: '获取头像成功',
+      msg: 'get avatar success',
       avatar,
     });
   } catch (error) {
     return res.status(500).json({
       status: 1,
-      msg: '获取头像失败',
+      msg: 'get avatar fail',
       error: error.message,
     });
   }

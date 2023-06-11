@@ -58,9 +58,7 @@ let handerObj = {
     }
   },
   
-  // 插入语句 查询语句
-  // 传参 rallyid
-  //      userid
+  // transfer the rallyid and userid to the backend
   requestJoin(req, res){
     const sql = `SELECT * FROM participate WHERE rallyid=${req.body.rallyid} and userid=${req.body.userid}`
     try {

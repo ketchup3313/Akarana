@@ -34,20 +34,20 @@ export default {
 
 <style>
   .el-container {
-    height: 100%; /* 设置 .el-container 的高度为 100% */
+    height: 100%; 
   }
 
   .el-main {
-    display: flex; /* 设置 .el-main 为弹性容器 */
-    flex-direction: column; /* 设置 .el-main 的弹性子元素（如 .calendar 和 .calendar-title）以列方式排列 */
-    justify-content: center; /* 垂直居中 .calendar div 和 .calendar-title div */
-    align-items: center; /* 水平居中 .calendar div 和 .calendar-title div */
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
   }
 
   .calendar-title {
-    font-size: 24px; /* 设置标题字体大小 */
-    font-weight: bold; /* 设置标题字体加粗 */
-    margin-bottom: 20px; /* 设置标题与日历之间的间距 */
+    font-size: 24px; 
+    font-weight: bold; 
+    margin-bottom: 20px; 
     
 
   }

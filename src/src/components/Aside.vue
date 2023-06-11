@@ -14,9 +14,7 @@
           <Comment />
         </el-icon>
         <span>Acitivity</span>
-        
       </template>
-
       <el-menu-item index="1-1">Rally</el-menu-item>
       <el-menu-item index="1-2">Newsletter</el-menu-item>
     </el-sub-menu>
@@ -53,33 +51,20 @@
         <QuestionFilled />
       </el-icon>How to use
     </el-menu-item>
-
-
-
-
   </el-menu>
 </template>
 
 <script setup>
 import { DefineProps } from 'vue';
-
 const { isCollapse } = defineProps(['isCollapse'])
-
-
-
 </script>
-
-
 <style lang="less" scoped>
 .el-radio-button__inner {
   padding: 0;
 }
-
-
 .el-menu--collapse {
   border: none;
 }
-
 .el-menu:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;

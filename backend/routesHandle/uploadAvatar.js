@@ -10,12 +10,12 @@ const { ossClientConfig } = require('../config');
 
 const client = new OSS(ossClientConfig);
 
-// 过滤非图片文件
+// filter the file type
 const imageFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
-    cb(new Error('请上传图片格式文件'), false);
+    cb(new Error('Please upload the image format file'), false);
   }
 };
 
@@ -31,22 +31,22 @@ const uploadAvatar = async (req, res) => {
     const fileName = `${username}-${Date.now()}${ext}`;
     const result = await client.put(`uploads/avatars/${fileName}`, Buffer.from(file.buffer));
 
-    // 将文件路径转换为URL
+    //change the url to https
     const fileURL = result.url;
 
-    // 更新用户头像信息
+    // update the avatar url in database
     const sql = 'UPDATE member SET avatar=? WHERE username=?';
     await queryPromise(sql, [fileURL, username]);
 
     res.status(200).json({
       status: 0,
-      msg: '上传头像成功',
+      msg: 'update avatar success',
       avatar: fileURL,
     });
   } catch (error) {
     res.status(500).json({
       status: 1,
-      msg: '上传头像失败',
+      msg: 'update avatar fail',
       error: error.message,
     });
   }

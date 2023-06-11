@@ -25,8 +25,8 @@ app.use('/api/rally', require('./routes/rally'))
 app.use('/api/photo', require('./routes/photo'))
 app.use('/api/avatar', require('./routes/avatar')); 
 
-
 app.use('/api/participatedRallies', participatedRalliesRouter);
+;
 
 
 app.use((err, req, res, next) => {
@@ -37,13 +37,23 @@ app.use((err, req, res, next) => {
       msg: [err.details[0].context.label, err.details[0].message],
     })
   }
-  // token解析错误的情况下抛出异常
+  // token error
   if (err.name === 'UnauthorizedError') {
     return res.send({
       status: 1,
       msg: 'Have not login !',
     })
   }
+
+   // process.env.NODE_ENV === 'development'
+   if (err.sqlState === '23000' && err.code === 'ER_DUP_ENTRY') {
+    return res.send({
+      status: 1,
+      msg: err.sqlMessage,
+    });
+  }
+  console.log(JSON.stringify(err, null, 2));
+  
   res.send({
     status: 1,
     msg: err.message || err,
