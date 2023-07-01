@@ -5,9 +5,6 @@
       <el-container>
         <el-header>
         </el-header>
-        <div class="more">If you wanna see more photo please click <a :href="albumLink" target="_blank" style="font-weight: bold; color: coral;">here</a></div>
-
-
         <el-main>
           <div class="photo-wall">
             <div v-for="(image, index) in dataList" :key="index" class="photo-wall__item">
@@ -24,39 +21,39 @@
   </div>
 </template>
   
-  <script>
-  import http from '@/utils/request'
-  
-  export default {
-    name: 'PhotoWall',
-    data() {
-      return {
-        dataList: [],
-    viewImageDialog: false,
-    currentImage: {},
-    albumLink: 'https://photos.app.goo.gl/zkBWUHcHntkFSaq67'
+<script>
+import http from '@/utils/request'
+
+export default {
+  name: 'PhotoWall',
+  data() {
+    return {
+      dataList: [],
+      viewImageDialog: false,
+      currentImage: {},
+      albumLink: 'https://photos.app.goo.gl/zkBWUHcHntkFSaq67'
+    }
+  },
+  created(){
+    this.getList();
+  },
+  methods: {
+    async getList(){
+      let {data,status} = (await http.get(`/api/photo`)).data;
+      console.log('Response:', data, status);
+      if(status === 0){
+        this.dataList = data.sort(() => Math.random() - 0.5);
+      }else{
+        this.dataList = [];
       }
     },
-    created(){
-      this.getList();
-    },
-    methods: {
-      async getList(){
-              let {data,status} = (await http.get(`/api/photo`)).data;
-              console.log('Response:', data, status);
-              if(status === 0){
-                  this.dataList = data;
-              }else{
-                  this.dataList = [];
-              }
-          },
-          viewImage(image) {
-    this.currentImage = image;
-    this.viewImageDialog = true;
-  }
+    viewImage(image) {
+      this.currentImage = image;
+      this.viewImageDialog = true;
     }
   }
-  </script>
+}
+</script>
   
   <style>
   .photo-wall {

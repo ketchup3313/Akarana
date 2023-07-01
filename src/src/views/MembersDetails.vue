@@ -107,7 +107,7 @@ export default {
         },
       });
     },
-    fetchData() { // 创建一个新的方法 fetchData
+    fetchData() { //
       let { id } = this.$route.query;
       const loadingInstance = ElLoading.service({
         lock: true,

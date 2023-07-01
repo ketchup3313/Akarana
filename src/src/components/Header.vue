@@ -125,7 +125,8 @@ export default {
     };
     const Photo = () => {
       // Jump to Baidu
-      window.open( "https://photos.app.goo.gl/c6zGfunJyCXDSULH7",'_blank');
+      // window.open( "https://photos.app.goo.gl/c6zGfunJyCXDSULH7",'_blank');
+      router.push("/photo")
     };
     const profile = () => {
       router.push("/profile");

@@ -26,7 +26,7 @@ app.use('/api/photo', require('./routes/photo'))
 app.use('/api/avatar', require('./routes/avatar')); 
 
 app.use('/api/participatedRallies', participatedRalliesRouter);
-;
+
 
 
 app.use((err, req, res, next) => {

@@ -4,7 +4,7 @@ const {updateUserInfo,queryUserInfo,checkUsername} = require('../routesHandle/mi
 
 router.post('/',updateUserInfo)
 router.get('/queryInfo',queryUserInfo)
-router.get('/checkUsername', checkUsername);
+
 
 
 module.exports = router
