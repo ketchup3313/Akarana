@@ -1,15 +1,11 @@
-const { defineConfig } = require('@vue/cli-service')
 const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
-module.exports = defineConfig({
-  transpileDependencies: true
-})
-
 
 module.exports = {
-   lintOnSave: false,  
-   configureWebpack:{
+  lintOnSave: false,
+  transpileDependencies: true,
+  configureWebpack: {
     devServer: {
       proxy: {
         "/api": {
@@ -19,7 +15,6 @@ module.exports = {
         },
       },
     },
-    
     plugins: [
       AutoImport({
         resolvers: [ElementPlusResolver()],
@@ -28,7 +23,5 @@ module.exports = {
         resolvers: [ElementPlusResolver()],
       }),
     ],
-   },
-   
-    
+  },
 };
